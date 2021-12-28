@@ -15,50 +15,72 @@
 
         body {
             display: flex;
-            flex-direction: column;
+            overflow-x: hidden;
 
             width: 100vw;
             height: 100vh;
             margin: 0;
             padding: 0;
 
-            background-color: #fafafa;
+            background-color: #ffffff;
+            color: #7a7a7a;
 
-            background-image: url(x43z.svg);
             background-repeat: no-repeat;
             background-size: 220px;
             background-position: 50%;
+
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 18px;
+            letter-spacing: 1.25px;
+            line-height: 3.2;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            grid-template-areas:
+            "h  h  h"
+            "l  c  r"
+            "f  f  f"
+            ;
+            grid-template-rows: 60px 1.0fr 60px;
+            grid-template-columns: minmax(30px, 0.5fr) minmax(0, 720px) minmax(30px, 0.5fr);
+            display: grid;
         }
 
         a {
+            width: 200px;
             margin: 10px 6px;
             padding: 8px 14px;
             text-align: center;
 
             background-color: #ffffff;
-            border: solid 1px #ecb8af;
+            border: solid 2px #ecb8af;
             color: #e95542;
-            box-shadow: 2px 3px 0px #7a7a7a;
-
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 16px;
-            letter-spacing: 1.25px;
-            line-height: 1.6;
+            box-shadow: 3px 3px 0px #8b8b8b;
 
             transition: background-color 0.2s ease-in-out;
         }
 
         a:hover {
-            background-color: #ffe4e0;
+            background-color: #ffeeeb;
 
             transition: background-color 0.2s ease-in-out;
         }
 
         .links_container {
+            grid-area: c;
             display: flex;
+            flex-direction: column;
             flex-wrap: wrap;
 
+            align-items: center;
+            justify-content: center;
+
             padding: 6px;
+            background-color: #f9f9f9;
+            box-shadow: 3px 3px 0px #a1a1a1;
+
         }
 
     </style>
@@ -68,11 +90,16 @@
     <title>x43z</title>
 </head>
 <body>
-    <div class = "links_container">
-        <a type="button" href="https://twitter.com/x43zdev">twitter</a>
-        <a type="button" href="https://www.reddit.com/user/x43z">reddit</a>
-        <a type="button" href="https://github.com/x43z">github</a>
-        <a type="button" href="https://mokozuma.com">PROJECT: mokozuma</a>
+    <div class="container" id="container">
+        <div class = "links_container">
+            x
+            <a type="button" href="https://twitter.com/x43zdev">>> twitter</a>
+            4
+            <a type="button" href="https://www.reddit.com/user/x43z">>> reddit</a>
+            3
+            <a type="button" href="https://github.com/x43z">>> github</a>
+            z
+        </div>
     </div>
 </body>
 </html>
