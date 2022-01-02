@@ -13,12 +13,16 @@
             box-sizing: inherit
         }
 
+        html {
+            height: 100%;
+        }
+
         body {
             display: flex;
             overflow-x: hidden;
 
             width: 100vw;
-            height: 100vh;
+            height: 100%;
             margin: 0;
             padding: 0;
 
@@ -37,7 +41,7 @@
 
         .container {
             width: 100vw;
-            height: 100vh;
+            height: 100%;
             grid-template-areas:
             "h  h  h"
             "l  c  r"
