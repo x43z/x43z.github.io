@@ -56,18 +56,22 @@
             padding: 8px 14px;
             text-align: center;
 
-            background-color: #ffffff;
-            border: solid 2px;
-            color: #e95542;
+            color: #ffffff;
+            background-color: #000000;
+            border: solid 2px #ffffff;
             box-shadow: 3px 3px 0px #8b8b8b;
 
-            transition: background-color 0.2s ease-in-out;
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover;
+
         }
 
         a:hover {
-            background-color: #ffeeeb;
+            box-shadow: 5px 5px 0px #8b8b8b;
+            border: solid 2px transparent;
 
-            transition: background-color 0.2s ease-in-out;
+            transition: box-shadow 0.1s ease-out;
         }
 
         .links_container {
@@ -95,11 +99,11 @@
     <div class="container" id="container">
         <div class = "links_container">
             <span>XXXX</span>
-            <a type="button" href="https://twitter.com/x43zdev" style="background-color: #1DA1F2; color: #F5F8FA">>> twitter</a>
+            <a type="button" href="https://twitter.com/x43zdev" style="background-color: #1DA1F2">>> twitter</a>
             <span>4444</span>
-            <a type="button" href="https://www.reddit.com/user/x43z" style="background-color: #ff4500; color: #FFFFFF">>> reddit</a>
+            <a type="button" href="https://www.reddit.com/user/x43z" style="background-color: #ff4500">>> reddit</a>
             <span>3333</span>
-            <a type="button" href="https://github.com/x43z" style="background-color: #211f1f; color: #FFFFFF">>> github</a>
+            <a type="button" href="https://github.com/x43z" style="background-color: #211f1f">>> github</a>
             <span>ZZZZ</span>
         </div>
     </div>
