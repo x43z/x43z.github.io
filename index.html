@@ -1,11 +1,11 @@
 <!doctype html>
 
-<html lang="en">
+<html>
+
 <head>
     <style>
         html {
             box-sizing: border-box;
-            height: 100%;
         }
 
         *,
@@ -16,94 +16,134 @@
 
         body {
             display: flex;
+            align-items: center;
+            justify-content: center;
             overflow-x: hidden;
 
             width: 100vw;
-            height: 100%;
             margin: 0;
             padding: 0;
 
-            background-color: #ffffff;
+            background-color: #fafafa;
             color: #8b8b8b;
 
-            background-repeat: no-repeat;
-            background-size: 220px;
-            background-position: 50%;
-
-            font-family: 'Arial', Arial, sans-serif;
-            font-size: 18px;
-            letter-spacing: 3.0px;
-            line-height: 3.5;
+            font-family: Arial, sans-serif;
+            font-size: 1rem;
+            font-weight: 400;
+            /*1px*/
+            line-height: 2.25;
         }
 
-        .container {
+        .bg {
             width: 100vw;
-            height: 100%;
-            grid-template-areas:
-            "h  h  h"
-            "l  c  r"
-            "f  f  f"
-            ;
-            grid-template-rows: 20px 1.0fr 20px;
-            grid-template-columns: minmax(16px, 0.5fr) minmax(0, 720px) minmax(16px, 0.5fr);
-            display: grid;
+            min-height: 100vh;
+            max-width: 900px;
+            background-color: #f7f7f7;
+            box-shadow: 0px 0px 200px #dbdbdb;
         }
 
-        a {
-            width: 200px;
-            vertical-align: middle;
-            margin: 10px 6px;
-            padding: 8px 14px;
-            text-align: center;
+        .wrapper {
+            width: 100%;
+            padding: 2%;
 
-            color: #ffffff;
-            background-color: #000000;
-            border: solid 2px #ffffff;
-            box-shadow: 3px 3px 0px #8b8b8b;
-
-            background-position: center; /* Center the image */
-            background-repeat: no-repeat; /* Do not repeat the image */
-            background-size: cover;
-
-        }
-
-        a:hover {
-            box-shadow: 5px 5px 0px #8b8b8b;
-            border: solid 2px transparent;
-
-            transition: box-shadow 0.2s ease-out, border 0.2s ease-out;
-        }
-
-        .links_container {
-            grid-area: c;
             display: flex;
-            flex-direction: column;
             flex-wrap: wrap;
-
-            align-items: center;
-            justify-content: center;
-
-            padding: 6px;
-            background-color: #f9f9f9;
         }
 
+        .wrapper * {
+            margin: 0.5%;
+            flex: 0 0 calc(33.33% - 1% * 2);
+            aspect-ratio: 1 / 1;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: calc(min(1.7777777vw * 1.2, 1.2rem));
+
+            overflow: hidden;
+            /* also break long words: */
+            overflow-wrap: anywhere;
+        }
+
+        .wrapper a {
+            padding: 2%;
+            letter-spacing: 0.15em;
+
+            transition: background-color 0.3s ease-out;
+
+            background-color: #ffffff;
+            color: #525252;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.034)
+        }
+
+        .wrapper a:hover {
+            background-color: rgba(0, 0, 0, 0.089);
+            transition: background-color 0.3s ease-out;
+        }
+
+        .stack {
+            display: grid;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.034)
+        }
+
+        .stack img {
+            grid-row: 1;
+            grid-column: 1;
+            width: 100%;
+            height: 100%;
+        }
+
+        .stack a {
+            grid-row: 1;
+            grid-column: 1;
+            width: 100%;
+            height: 100%;
+            color: #ffffff;
+            background-color: #ffffff00;
+        }
+
+        .stack a:hover {
+            background-color: rgba(0, 0, 0, 0.445);
+            transition: background-color 0.3s ease-out;
+        }
+
+        span {
+            padding: 2%;
+            letter-spacing: 0.15em;
+            background-color: #f7f7f700;
+            box-shadow: none;
+        }
     </style>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="x43z">
     <title>x43z</title>
 </head>
+
 <body>
-    <div class="container" id="container">
-        <div class = "links_container">
-            <span>XXXX</span>
-            <a type="button" href="https://twitter.com/x43zdev" style="background-color: #1DA1F2">>> twitter</a>
-            <span>4444</span>
-            <a type="button" href="https://www.reddit.com/user/x43z" style="background-color: #ff4500">>> reddit</a>
-            <span>3333</span>
-            <a type="button" href="https://store.steampowered.com/app/1852060/Pushing_Crates/?curator_clanid=4777282&utm_source=SteamDB" style="background-color: #211f1f">>> steam</a>
-            <span>ZZZZ</span>
+    <div class="bg">
+        <div class="wrapper">
+            <span>X43Z</span>
+            <a href="https://twitter.com/x43zdev">twitter:<br>@x43zdev</a>
+            <a href="https://reddit.com/user/x43z">reddit:<br>u/x43z</a>
+            <span>Pushing Crates: A sliding puzzle game<br>🡢</span>
+            <div class="stack"><img src="screenshot_5.png"><a
+                    href="https://store.steampowered.com/app/1852060/Pushing_Crates/">PUSHING<br>CRATES</a>
+            </div>
+            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
+            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
+            <span>work in progress:<br>🡢</span>
+            <div class="stack"><img src="testimg.png"><a href="#">WIP</a>
+            </div>
+            <div></div>
+            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
+            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
+            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
+            <span>contact:<br>x43zdev (at) gmail (dot) com</span>
         </div>
     </div>
 </body>
+
 </html>
