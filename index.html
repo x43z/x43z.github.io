@@ -50,7 +50,7 @@
             flex-wrap: wrap;
         }
 
-        .wrapper * {
+        .wrapper>* {
             margin: 0.5%;
             flex: 0 0 calc(33.33% - 1% * 2);
             aspect-ratio: 1 / 1;
@@ -67,53 +67,71 @@
             overflow-wrap: anywhere;
         }
 
-        .wrapper a {
+        a {
             padding: 2%;
             letter-spacing: 0.15em;
-
-            transition: background-color 0.3s ease-out;
-
-            background-color: #ffffff;
             color: #525252;
-            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.034)
+            background-color: #ffffff;
+            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.034);
+            transition: background-color 0.3s ease-out;
         }
 
-        .wrapper a:hover {
+        a:hover {
             background-color: rgba(0, 0, 0, 0.089);
             transition: background-color 0.3s ease-out;
         }
 
         .stack {
-            display: grid;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.034)
         }
 
-        .stack img {
-            grid-row: 1;
-            grid-column: 1;
+        .stack>img {
+            position: absolute;
             width: 100%;
             height: 100%;
         }
 
-        .stack a {
-            grid-row: 1;
-            grid-column: 1;
+        .stack>a {
+            position: absolute;
             width: 100%;
             height: 100%;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+
             color: #ffffff;
+            text-shadow: 0px 2px 5px #000000;
             background-color: #ffffff00;
+            overflow: hidden;
         }
 
-        .stack a:hover {
+        .stack>a:hover {
             background-color: rgba(0, 0, 0, 0.445);
             transition: background-color 0.3s ease-out;
         }
 
-        span {
+        .text {
             padding: 2%;
             letter-spacing: 0.15em;
-            background-color: #f7f7f700;
+            background-color: rgba(0, 0, 0, 0);
             box-shadow: none;
+        }
+
+        span {
+            padding: 2%;
+            box-shadow: none;
+            background-color: rgba(0, 0, 0, 0.5);
         }
     </style>
     <meta charset="utf-8">
@@ -125,23 +143,22 @@
 <body>
     <div class="bg">
         <div class="wrapper">
-            <span>X43Z</span>
+            <span class="text">X43Z</span>
             <a href="https://twitter.com/x43zdev">twitter:<br>@x43zdev</a>
             <a href="https://reddit.com/user/x43z">reddit:<br>u/x43z</a>
-            <span>Pushing Crates: A sliding puzzle game<br>➜</span>
             <div class="stack"><img src="screenshot_5.jpg"><a
-                    href="https://store.steampowered.com/app/1852060/Pushing_Crates/">PUSHING<br>CRATES</a>
+                    href="https://store.steampowered.com/app/1852060/Pushing_Crates/"><span>PUSHING<br>CRATES</span></a>
             </div>
-            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
-            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
-            <span>work in progress:<br>➜</span>
-            <div class="stack"><img src="testimg.jpg"><a href="#">WIP</a>
+            <div class="stack"><img src="batch_recolor.jpg">
+                <a href="./batch_recolor/batch_recolor.html"><span>BATCH<br>RECOLORING</span></a>
+            </div>
+            <div class="stack"><img src="testimg.jpg"><a href="#"><span>WIP</span></a>
             </div>
             <div></div>
             <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
             <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
             <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
-            <span>contact:<br>x43zdev (at) gmail (dot) com</span>
+            <span class="text">contact:<br>x43zdev (at) gmail (dot) com</span>
         </div>
     </div>
 </body>
