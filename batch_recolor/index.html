@@ -206,7 +206,8 @@
         <div class="h-container">
             <input id="gradient-a" type="color">
             <input id="gradient-b" type="color">
-            <button onclick="generateGradient()" class="edit">Generate gradient</button>
+            <button onclick="generateGradient(false)" class="edit">Gradient</button>
+            <button onclick="generateGradient(true)" class="edit">Gradient with inverted hue</button>
             <button onclick="resetColors()" class="edit">Reset colors</button>
         </div>
     </div>
@@ -384,12 +385,23 @@
             return (1.0 - t) * a + t * b;
         }
 
-        const generateGradient = () => {
+        const generateGradient = (invert_hue_direction) => {
             let gradient_a_hex = document.getElementById("gradient-a").value;
             let gradient_b_hex = document.getElementById("gradient-b").value;
 
             const [h_a, s_a, l_a] = hexToOkhsl(gradient_a_hex);
             const [h_b, s_b, l_b] = hexToOkhsl(gradient_b_hex);
+
+            let h_target = h_b;
+            if (!invert_hue_direction) {
+                if (Math.abs(h_a - h_target) > Math.abs(h_a - (h_target + 1.0))) {
+                    h_target = h_target + 1.0;
+                }
+            } else {
+                if (Math.abs(h_a - h_target) <= Math.abs(h_a - (h_target + 1.0))) {
+                    h_target = h_target + 1.0;
+                }
+            }
 
             if (color_mapping.size >= 2) {
                 const max_t = color_mapping.size - 1;
@@ -398,7 +410,7 @@
                 colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLHS(a, b));
                 for (const [index, [from_color, _to_color]] of colors_array.entries()) {
                     const t = index / max_t;
-                    const h = lerp(h_a, h_b, t); // TODO: step through hue in reverse! or always use short trip
+                    const h = lerp(h_a, h_target, t) % 1.0; // TODO: step through hue in reverse! or always use short trip
                     const s = lerp(s_a, s_b, t);
                     const l = lerp(l_a, l_b, t);
                     color_mapping.set(from_color, okhslToHex([h, s, l]))
