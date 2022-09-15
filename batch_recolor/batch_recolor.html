@@ -217,10 +217,28 @@
         <div id="image-container" class="h-container">
         </div>
     </div>
-    <script src="hsluv-0.1.0.min.js"></script>
+    <script src="okhsl.js"></script>
     <script>
-        const hsluv = window.hsluv;
-        console.log(hsluv);
+        const rgbToHex = ([r, g, b]) => {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+        }
+
+        const hexToRgb = (hex) =>
+            hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
+                , (m, r, g, b) => '#' + r + r + g + g + b + b)
+                .substring(1).match(/.{2}/g)
+                .map(x => parseInt(x, 16));
+
+        const okhslToHex = ([h, s, l]) => {
+            const [r, g, b] = okhsl_to_srgb([h, s, l]);
+            return rgbToHex([Math.round(r), Math.round(g), Math.round(b)]);
+        }
+
+        const hexToOkhsl = (hex) =>
+            srgb_to_okhsl(hexToRgb(hex))
+
+        const hexToHsl = (hex) =>
+            rgb_to_hsl(hexToRgb(hex))
 
         const file_mapping = new Map();
         const color_set = new Set();
@@ -303,7 +321,7 @@
             const colors_container = document.getElementById("colors-container");
             colors_container.textContent = '';
             let colors_array = Array.from(color_set).slice(0, 256); // 256 max_n colors
-            colors_array.sort((a, b) => sortByHLuvS(a, b));
+            colors_array.sort((a, b) => sortByHLS(a, b));
             colors_array.forEach((color) => {
                 var color_checkbox = document.createElement("input");
                 color_checkbox.setAttribute("type", "checkbox");
@@ -332,7 +350,7 @@
             const recolor_container = document.getElementById("recolor-container");
             recolor_container.textContent = '';
             let colors_array = Array.from(color_mapping)
-            colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLuvHS(a, b));
+            colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLHS(a, b));
             colors_array.forEach(([from_color, to_color]) => {
                 var from_color_view = document.createElement("input");
                 from_color_view.setAttribute("type", "checkbox");
@@ -354,38 +372,35 @@
             });
         }
 
-        const rgbToHex = (r, g, b) => {
-            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-        }
-
-        const hexToRgb = (hex) =>
-            hex.replace(/^#?([a-f\d])([a-f\d])([a-f\d])$/i
-                , (m, r, g, b) => '#' + r + r + g + g + b + b)
-                .substring(1).match(/.{2}/g)
-                .map(x => parseInt(x, 16));
-
         const lerp = (a, b, t) => {
             return (1.0 - t) * a + t * b;
         }
 
         const generateGradient = () => {
-            const gradient_a_hex = document.getElementById("gradient-a").value;
-            const gradient_b_hex = document.getElementById("gradient-b").value;
-
-            const [h_a, s_a, luv_a] = hsluv.hexToHsluv(gradient_a_hex);
-            const [h_b, s_b, luv_b] = hsluv.hexToHsluv(gradient_b_hex);
+            let gradient_a_hex = document.getElementById("gradient-a").value;
+            if (gradient_a_hex === "#000000") {
+                // TODO: why does #000000 not work?
+                gradient_a_hex = "#010101";
+            }
+            let gradient_b_hex = document.getElementById("gradient-b").value;
+            if (gradient_b_hex === "#000000") {
+                // TODO: why does #000000 not work?
+                gradient_b_hex = "#010101";
+            }
+            const [h_a, s_a, l_a] = hexToOkhsl(gradient_a_hex);
+            const [h_b, s_b, l_b] = hexToOkhsl(gradient_b_hex);
 
             if (color_mapping.size >= 2) {
                 const max_t = color_mapping.size - 1;
 
                 let colors_array = Array.from(color_mapping)
-                colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLuvHS(a, b));
+                colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLHS(a, b));
                 for (const [index, [from_color, _to_color]] of colors_array.entries()) {
                     const t = index / max_t;
-                    const h = lerp(h_a, h_b, t);
+                    const h = lerp(h_a, h_b, t); // TODO: step through hue in reverse! or always use short trip
                     const s = lerp(s_a, s_b, t);
-                    const luv = lerp(luv_a, luv_b, t);
-                    color_mapping.set(from_color, hsluv.hsluvToHex([h, s, luv]))
+                    const l = lerp(l_a, l_b, t);
+                    color_mapping.set(from_color, okhslToHex([h, s, l]))
                 }
 
                 rebuildColorMappingView();
@@ -410,28 +425,28 @@
             redrawImages();
         }
 
-        const sortByHLuvS = (hex_a, hex_b) => {
-            [h_a, s_a, luv_a] = hsluv.hexToHsluv(hex_a);
-            [h_b, s_b, luv_b] = hsluv.hexToHsluv(hex_b);
+        const sortByHLS = (hex_a, hex_b) => {
+            [h_a, s_a, l_a] = hexToHsl(hex_a);
+            [h_b, s_b, l_b] = hexToHsl(hex_b);
             const diff_h = h_a - h_b
             if (diff_h != 0.0) {
                 return diff_h;
             } else {
-                const diff_luv = luv_a - luv_b;
-                if (diff_luv != 0.0) {
-                    return diff_luv;
+                const diff_l = l_a - l_b;
+                if (diff_l != 0.0) {
+                    return diff_l;
                 } else {
                     return s_a - s_b;
                 }
             }
         }
 
-        const sortByLuvHS = (hex_a, hex_b) => {
-            [h_a, s_a, luv_a] = hsluv.hexToHsluv(hex_a);
-            [h_b, s_b, luv_b] = hsluv.hexToHsluv(hex_b);
-            const diff_luv = luv_a - luv_b
-            if (diff_luv != 0.0) {
-                return diff_luv;
+        const sortByLHS = (hex_a, hex_b) => {
+            [h_a, s_a, l_a] = hexToHsl(hex_a);
+            [h_b, s_b, l_b] = hexToHsl(hex_b);
+            const diff_l = l_a - l_b
+            if (diff_l != 0.0) {
+                return diff_l;
             } else {
                 const diff_h = h_a - h_b;
                 if (diff_h != 0.0) {
@@ -454,7 +469,7 @@
             const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
             const data = imageData.data;
             for (let i = 0; i < data.length; i += 4) {
-                const hex = rgbToHex(data[i], data[i + 1], data[i + 2]);
+                const hex = rgbToHex([data[i], data[i + 1], data[i + 2]]);
                 const mapped_color_hex = color_mapping.get(hex);
                 if (mapped_color_hex !== undefined && mapped_color_hex !== null) {
                     [r, g, b] = hexToRgb(mapped_color_hex);
@@ -474,7 +489,7 @@
             const data = imageData.data;
             for (let i = 0; i < data.length; i += 4) {
                 if (data[i + 3] > 0) {
-                    color_set.add(rgbToHex(data[i], data[i + 1], data[i + 2]));
+                    color_set.add(rgbToHex([data[i], data[i + 1], data[i + 2]]));
                 }
             }
         }
