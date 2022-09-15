@@ -16,6 +16,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+// source: https://github.com/bottosson/bottosson.github.io/tree/master/misc/colorpicker
+
 function rgb_to_hsl([r, g, b]) {
     r /= 255;
     g /= 255;

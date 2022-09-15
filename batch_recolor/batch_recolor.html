@@ -234,8 +234,16 @@
             return rgbToHex([Math.round(r), Math.round(g), Math.round(b)]);
         }
 
-        const hexToOkhsl = (hex) =>
-            srgb_to_okhsl(hexToRgb(hex))
+        const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+        const hexToOkhsl = (hex) => {
+            let [r, g, b] = hexToRgb(hex);
+            // TODO: why does 0 and 255 lead to wrong colos gradients?
+            r = clamp(r, 1, 254);
+            g = clamp(g, 1, 254);
+            b = clamp(b, 1, 254);
+            return srgb_to_okhsl([r, g, b]);
+        }
 
         const hexToHsl = (hex) =>
             rgb_to_hsl(hexToRgb(hex))
@@ -378,15 +386,8 @@
 
         const generateGradient = () => {
             let gradient_a_hex = document.getElementById("gradient-a").value;
-            if (gradient_a_hex === "#000000") {
-                // TODO: why does #000000 not work?
-                gradient_a_hex = "#010101";
-            }
             let gradient_b_hex = document.getElementById("gradient-b").value;
-            if (gradient_b_hex === "#000000") {
-                // TODO: why does #000000 not work?
-                gradient_b_hex = "#010101";
-            }
+
             const [h_a, s_a, l_a] = hexToOkhsl(gradient_a_hex);
             const [h_b, s_b, l_b] = hexToOkhsl(gradient_b_hex);
 
