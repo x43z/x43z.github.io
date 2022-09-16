@@ -42,6 +42,7 @@
             white-space: nowrap;
             text-align: center;
             letter-spacing: 0.1500rem;
+            text-decoration: underline;
 
             margin: 4px;
             padding: 12px 32px;
@@ -101,6 +102,16 @@
             align-items: center;
         }
 
+        .tool-container {
+            display: flex;
+            margin: 10px;
+            padding: 10px;
+            flex-flow: nowrap;
+            justify-content: center;
+            align-items: center;
+            border: double 5px #8b8b8b;
+        }
+
         #drop-zone {
             width: 100%;
             max-width: 1200px;
@@ -126,7 +137,6 @@
 
         #colors-container {
             margin: 10px;
-            padding: 20px;
         }
 
         #recolor-border {
@@ -136,7 +146,6 @@
 
         #recolor-container {
             margin: 10px;
-            padding: 20px;
         }
 
         canvas {
@@ -188,29 +197,42 @@
         <a href="https://x43z.com">check out my other projects!</a>
         <button onclick="saveImages()" class="save">Save changes</button>
     </div>
-    <div id="colors-border" class="v-container">
-        <div>
+    <fieldset id="colors-border" class="v-container">
+        <legend>
             +++ <span>STEP (2)</span> Select the colors you want to edit +++
-        </div>
+        </legend>
         <div id="colors-container" class="h-container">
             Image colors will appear here; Images should only contain up to 256 different colors.
         </div>
-    </div>
-    <div id="recolor-border" class="v-container">
-        <div>
-            +++ <span>STEP (3):</span> Edit colors +++
+        <div class="h-container">
+            <button onclick="selectAllColors()" class="edit">Select all</button>
+            <button onclick="deselectAllColors()" class="edit">Deselect all</button>
         </div>
+    </fieldset>
+    <fieldset id="recolor-border" class="v-container">
+        <legend>
+            +++ <span>STEP (3):</span> Edit colors +++
+        </legend>
         <div id="recolor-container" class="h-container">
             Colors selected for editing will appear here.
         </div>
         <div class="h-container">
-            <input id="gradient-a" type="color">
-            <input id="gradient-b" type="color">
-            <button onclick="generateGradient(false)" class="edit">Gradient</button>
-            <button onclick="generateGradient(true)" class="edit">Gradient with inverted hue</button>
+            <fieldset class=tool-container>
+                <legend>Gradient</legend>
+                <input id="gradient-a" type="color">
+                <input id="gradient-b" type="color">
+                <button onclick="generateGradient()" class="edit">Apply Gradient</button>
+            </fieldset>
+            <fieldset class=tool-container>
+                <legend>Quadratic Bezier Gradient</legend>
+                <input id="bezier-a" type="color">
+                <input id="bezier-b" type="color">
+                <input id="bezier-c" type="color">
+                <button onclick="generate3PointGradient()" class="edit">Apply Gradient</button>
+            </fieldset>
             <button onclick="resetColors()" class="edit">Reset colors</button>
         </div>
-    </div>
+    </fieldset>
     <div id="drop-zone" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
         <h2>
             +++ <span>STEP (1)</span> Drag and drop .png or .jpg files and folders here +++
@@ -325,6 +347,22 @@
             });
         }
 
+        const selectAllColors = () => {
+            color_set.forEach((color) => {
+                if (!color_mapping.has(color)) {
+                    color_mapping.set(color, color);
+                }
+            })
+            rebuildColorSelectionView()
+            rebuildColorMappingView()
+        }
+
+        const deselectAllColors = () => {
+            color_mapping.clear();
+            rebuildColorSelectionView();
+            rebuildColorMappingView();
+        }
+
         const rebuildColorSelectionView = () => {
             // update color picker view
             const colors_container = document.getElementById("colors-container");
@@ -381,11 +419,13 @@
             });
         }
 
-        const lerp = (a, b, t) => {
-            return (1.0 - t) * a + t * b;
-        }
+        const lerp = (a, b, t) =>
+            (1.0 - t) * a + t * b;
 
-        const generateGradient = (invert_hue_direction) => {
+        const quadratic_bezier = (a, b, c, t) =>
+            a * (1 - t) ** 2 + b * 2 * (1 - t) * t + c * t ** 2
+
+        const generateGradient = () => {
             let gradient_a_hex = document.getElementById("gradient-a").value;
             let gradient_b_hex = document.getElementById("gradient-b").value;
 
@@ -393,14 +433,8 @@
             const [h_b, s_b, l_b] = hexToOkhsl(gradient_b_hex);
 
             let h_target = h_b;
-            if (!invert_hue_direction) {
-                if (Math.abs(h_a - h_target) > Math.abs(h_a - (h_target + 1.0))) {
-                    h_target = h_target + 1.0;
-                }
-            } else {
-                if (Math.abs(h_a - h_target) <= Math.abs(h_a - (h_target + 1.0))) {
-                    h_target = h_target + 1.0;
-                }
+            if (Math.abs(h_a - h_target) > Math.abs(h_a - (h_target + 1.0))) {
+                h_target = h_target + 1.0;
             }
 
             if (color_mapping.size >= 2) {
@@ -422,6 +456,46 @@
                 console.log("TODO");
             }
         }
+
+        const generate3PointGradient = () => {
+            let a_hex = document.getElementById("bezier-a").value;
+            let b_hex = document.getElementById("bezier-b").value;
+            let c_hex = document.getElementById("bezier-c").value;
+
+            const [h_a, s_a, l_a] = hexToOkhsl(a_hex);
+            const [h_b, s_b, l_b] = hexToOkhsl(b_hex);
+            const [h_c, s_c, l_c] = hexToOkhsl(c_hex);
+
+            let h_target_1 = h_b;
+            if (Math.abs(h_a - h_target_1) > Math.abs(h_a - (h_target_1 + 1.0))) {
+                h_target_1 = h_target_1 + 1.0;
+            }
+
+            let h_target_2 = h_c;
+            if (Math.abs(h_b - h_target_2) > Math.abs(h_b - (h_target_2 + 1.0))) {
+                h_target_2 = h_target_2 + 1.0;
+            }
+
+            if (color_mapping.size >= 2) {
+                const max_t = color_mapping.size - 1;
+
+                let colors_array = Array.from(color_mapping)
+                colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLHS(a, b));
+                for (const [index, [from_color, _to_color]] of colors_array.entries()) {
+                    const t = index / max_t;
+                    const h = quadratic_bezier(h_a, h_target_1, h_target_2, t) % 1.0; // TODO: step through hue in reverse! or always use short trip
+                    const s = quadratic_bezier(s_a, s_b, s_c, t);
+                    const l = quadratic_bezier(l_a, l_b, l_c, t);
+                    color_mapping.set(from_color, okhslToHex([h, s, l]))
+                }
+
+                rebuildColorMappingView();
+                redrawImages();
+            } else {
+                console.log("TODO");
+            }
+        }
+
 
         const resetColors = () => {
             if (color_mapping.size >= 1) {
