@@ -228,7 +228,7 @@
                 <input id="bezier-a" type="color">
                 <input id="bezier-b" type="color">
                 <input id="bezier-c" type="color">
-                <button onclick="generate3PointGradient()" class="edit">Apply Gradient</button>
+                <button onclick="generateBezierGradient()" class="edit">Apply Gradient</button>
             </fieldset>
             <button onclick="resetColors()" class="edit">Reset colors</button>
         </div>
@@ -395,28 +395,32 @@
 
         const rebuildColorMappingView = () => {
             const recolor_container = document.getElementById("recolor-container");
-            recolor_container.textContent = '';
-            let colors_array = Array.from(color_mapping)
-            colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLHS(a, b));
-            colors_array.forEach(([from_color, to_color]) => {
-                var from_color_view = document.createElement("input");
-                from_color_view.setAttribute("type", "checkbox");
-                from_color_view.style.backgroundColor = from_color;
-                from_color_view.style.accentColor = from_color;
+            if (color_mapping.size == 0) {
+                recolor_container.textContent = 'Colors selected for editing will appear here.';
+            } else {
+                recolor_container.textContent = '';
+                let colors_array = Array.from(color_mapping)
+                colors_array.sort(([a, recolor_a], [b, recolor_b]) => sortByLHS(a, b));
+                colors_array.forEach(([from_color, to_color]) => {
+                    var from_color_view = document.createElement("input");
+                    from_color_view.setAttribute("type", "checkbox");
+                    from_color_view.style.backgroundColor = from_color;
+                    from_color_view.style.accentColor = from_color;
 
-                var to_color_view = document.createElement("input");
-                to_color_view.setAttribute("type", "color");
-                to_color_view.value = to_color;
-                //to_color_view.oninput = (event) => { applyColorChange(from_color, event.target.value); }; // TODO: checkbox to disable
-                to_color_view.onchange = (event) => { applyColorChange(from_color, event.target.value); };
+                    var to_color_view = document.createElement("input");
+                    to_color_view.setAttribute("type", "color");
+                    to_color_view.value = to_color;
+                    //to_color_view.oninput = (event) => { applyColorChange(from_color, event.target.value); }; // TODO: checkbox to enable
+                    to_color_view.onchange = (event) => { applyColorChange(from_color, event.target.value); };
 
-                const color_changer = document.createElement('div');
-                color_changer.className = 'color-changer';
+                    const color_changer = document.createElement('div');
+                    color_changer.className = 'color-changer';
 
-                color_changer.append(from_color_view, '⬇', to_color_view);
+                    color_changer.append(from_color_view, '⬇', to_color_view);
 
-                recolor_container.appendChild(color_changer);
-            });
+                    recolor_container.appendChild(color_changer);
+                });
+            }
         }
 
         const lerp = (a, b, t) =>
@@ -457,7 +461,7 @@
             }
         }
 
-        const generate3PointGradient = () => {
+        const generateBezierGradient = () => {
             let a_hex = document.getElementById("bezier-a").value;
             let b_hex = document.getElementById("bezier-b").value;
             let c_hex = document.getElementById("bezier-c").value;
