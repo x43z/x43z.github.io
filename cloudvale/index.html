@@ -57,10 +57,15 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
+        .img_container {
+            background-color: #000000;
+        }
+
         img {
+            display: block;
             width: 100%;
             height: auto;
-            border: 0.6rem solid #000000;
+            padding: 0.6rem;
         }
     </style>
     <meta charset="utf-8">
@@ -73,7 +78,11 @@
     <div class="wrapper">
         <section>
             <h2> Cloudvale </h2>
-            <a href="cloudvale.jpg"><img src="cloudvale.jpg"></a>
+            <a href="cloudvale.jpg">
+                <div class="img_container">
+                    <img src="cloudvale.jpg">
+                </div>
+            </a>
 
             <p>This unique pixel art adventure, you will explore a forgotten land in search of valuable resources and
                 new recruits to help you survive.</p>
