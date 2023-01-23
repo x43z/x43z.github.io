@@ -1,174 +1,86 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html>
 
 <head>
+    <link rel="stylesheet" href="css/x43z.css">
     <style>
-        html {
-            box-sizing: border-box;
-        }
+        .linklist {
+            /* center h */
+            margin: 0 auto;
 
-        *,
-        *::before,
-        *::after {
-            box-sizing: inherit
-        }
-
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow-x: hidden;
-
-            width: 100vw;
-            margin: 0;
-            padding: 0;
-
-            background-color: #fafafa;
-            color: #8b8b8b;
-
-            font-family: Arial, sans-serif;
-            font-size: 1rem;
-            font-weight: 400;
-            /*1px*/
-            line-height: 2.25;
-        }
-
-        .bg {
-            width: 100vw;
-            min-height: 100vh;
-            max-width: 900px;
-            background-color: #f7f7f7;
-            box-shadow: 0px 0px 200px #dbdbdb;
-        }
-
-        .wrapper {
-            width: 100%;
-            padding: 2%;
-
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .wrapper>* {
-            margin: 0.5%;
-            flex: 0 0 calc(33.33% - 1% * 2);
-            aspect-ratio: 1 / 1;
-
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
             text-align: center;
-            font-size: calc(min(1.7777777vw * 1.2, 1.2rem));
-
-            overflow: hidden;
-            /* also break long words: */
-            overflow-wrap: anywhere;
-        }
-
-        a {
-            padding: 2%;
-            letter-spacing: 0.15em;
-            color: #525252;
-            background-color: #ffffff;
-            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.034);
-            transition: background-color 0.3s ease-out;
-        }
-
-        a:hover {
-            background-color: rgba(0, 0, 0, 0.089);
-            transition: background-color 0.3s ease-out;
-        }
-
-        .stack {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.034)
-        }
-
-        .stack>img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-        }
-
-        .stack>a {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-
-            padding: 6%;
-
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-
-            color: #ffffff;
-            text-shadow: 0px 0px 5px #000000;
-            background-color: #ffffff00;
-            overflow: hidden;
-        }
-
-        .stack>a:hover {
-            background-color: rgba(0, 0, 0, 0.445);
-            transition: background-color 0.3s ease-out;
-        }
-
-        .text {
-            padding: 2%;
-            letter-spacing: 0.15em;
-            background-color: rgba(0, 0, 0, 0);
-            box-shadow: none;
-        }
-
-        span {
-            padding: 0.2em 0;
-            background-color: rgba(0, 0, 0, 0.5);
+            max-width: 1000px;
+            padding: 1rem 2.5rem;
         }
     </style>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="x43z">
+    <meta charset="UTF-8">
     <title>x43z</title>
 </head>
 
 <body>
-    <div class="bg">
-        <div class="wrapper">
-            <span class="text">X43Z</span>
-            <a href="https://twitter.com/x43zdev">twitter:<br>@x43zdev</a>
-            <a href="https://reddit.com/user/x43z">reddit:<br>u/x43z</a>
-            <div class="stack"><img src="screenshot_5.jpg"><a
-                    href="https://store.steampowered.com/app/1852060/Pushing_Crates/">
-                    <div><span>PUSHING<br>CRATES</span></div>
-                </a>
-            </div>
-            <div class="stack"><img src="batch_recolor.jpg">
-                <a href="./batch_recolor/index.html">
-                    <div><span>BATCH<br>RECOLORING</span></div>
-                </a>
-            </div>
-            <div class="stack"><img src="testimg.jpg">
-                <a href="./cloudvale/index.html">
-                    <div><span>CLOUDVALE</span></div>
-                </a>
-            </div>
-            <div></div>
-            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
-            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
-            <img src="x.svg" style="opacity: 0.12; padding: 5%; user-select: none" draggable="false">
-            <span class="text">contact:<br>x43zdev (at) gmail (dot) com</span>
+    <section class="nav-wrapper">
+        <div class="nav-logo">X43Z</div>
+        <div class="nav-links">
+            <!--<a href="#" class="current-page">Home</a>-->
+            <a href="#anchor-games">Games</a>
+            <a href="#anchor-tools">Tools</a>
+            <a href="#anchor-social">Social</a>
+            <a href="#anchor-contact">Contact</a>
         </div>
-    </div>
+        <div class="nav-spacer"></div>
+    </section>
+    <section class="content-double" id="anchor-games">
+        <div class="content-double-item">
+            <h1>Cloudvale</h1>
+            <h2>A pixel art adventure.</h2>
+            <a href="media/cloudvale.jpg">
+                <div class="img_backdrop">
+                    <img src="media/cloudvale.jpg">
+                </div>
+            </a>
+            <p>In this unique pixel art adventure, you will explore a forgotten land in search of valuable resources and
+                new recruits to help you survive.</p>
+
+            <p>As you journey through the land, you will encounter challenging combat and intense bossfights
+                that will test your mettle. But fear not, as you progress through the game, you will be able to upgrade
+                your character and weapons, giving you the edge you need to overcome even the toughest of foes.</p>
+
+            <p>In addition to fighting, you will also have the opportunity to engage in farming, providing you with the
+                resources you need to survive. And as you settle into an abandoned town, you will have the chance to
+                recruit NPCs who can provide you with valuable goods and services, helping you build a thriving
+                community.</p>
+
+            <p>So grab your weapon and embark on an epic adventure in "Cloudvale"!</p>
+        </div>
+        <div class="content-double-item">
+            <h1>Pushing Crates</h1>
+            <h2>A sliding puzzle game.</h2>
+            <a href="media/pushing_crates.jpg">
+                <div class="img_backdrop">
+                    <img src="media/pushing_crates.jpg">
+                </div>
+            </a>
+            <p>Pushing Crates is a sliding puzzle game where your goal is to move the blue crate to the marked goal.</p>
+            <p>Play 100 levels of varying difficulty in any order.</p>
+            <p>Try to solve each level in the minimal amount of moves for an additional challenge. </p>
+            <strong><a href="https://store.steampowered.com/app/1852060/Pushing_Crates/">Get it now on
+                    steam!</a></strong>
+        </div>
+    </section>
+    <section class="content-single" id="anchor-tools">
+        <h1>Tools</h1>
+        <h2>A collection of web-based tools.</h2>
+        <p><strong><a href="https://x43z.com/batch_recolor/index.html">Batch Recoloring</a></strong></p>
+    </section>
+    <section class="linklist" id="anchor-social">
+        <br>
+        <strong>Twitter: <a href="https://twitter.com/x43zdev">@x43zdev</a></strong>
+        <strong>Reddit: <a href="https://www.reddit.com/user/x43z">u/x43z</a></strong>
+        <strong>TikTok: <a href="https://www.tiktok.com/@x43zdev">@x43zdev</a></strong>
+    </section>
+    <footer id="anchor-contact">
+        <strong>Contact: x43zdev (at) gmail (dot) com</strong>
+    </footer>>
 </body>
 
 </html>
