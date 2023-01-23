@@ -220,6 +220,7 @@ h2 {
 }
 
 strong {
+    white-space: nowrap;
     padding: 0 1rem;
     font-family: 'IBM Plex Serif';
     font-size: 1.125rem;
