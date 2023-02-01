@@ -1,15 +1,3 @@
-/* source-sans-pro-300italic - latin-ext_latin */
-@font-face {
-    font-family: 'Source Sans Pro';
-    font-style: italic;
-    font-weight: 300;
-    src: local(''),
-        url('../fonts/source-sans-pro-v21-latin-ext_latin-300italic.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url('../fonts/source-sans-pro-v21-latin-ext_latin-300italic.woff') format('woff');
-    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-
 /* source-sans-pro-regular - latin-ext_latin */
 @font-face {
     font-family: 'Source Sans Pro';
@@ -82,7 +70,7 @@ html {
 *,
 *::before,
 *::after {
-    box-sizing: inherit
+    box-sizing: border-box
 }
 
 body {
@@ -115,7 +103,6 @@ body {
 
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
-    font-weight: 300;
 }
 
 .nav-spacer {
@@ -209,7 +196,7 @@ body {
 
 .section-header {
     margin: 0 auto;
-    padding: 1rem 2.5rem;
+    padding: 3.5rem 2.5rem 0rem 2.5rem;
     width: calc(100% - 2.5rem * 2);
     max-width: calc(56.25rem - 2.5rem * 2);
 
@@ -228,6 +215,7 @@ a {
 }
 
 h1 {
+    margin: 2rem 0;
     padding: 0 1rem;
     font-family: 'IBM Plex Serif';
     font-size: 3rem;
@@ -235,6 +223,7 @@ h1 {
 }
 
 h2 {
+    margin: 1rem 0;
     padding: 1rem;
     font-family: 'IBM Plex Serif';
     font-size: 1.25rem;
@@ -271,7 +260,7 @@ footer {
     padding: 1rem 2.5rem;
 }
 
-.img_backdrop {
+.img-backdrop {
     padding: 0 1rem;
 }
 
@@ -279,4 +268,36 @@ img {
     display: block;
     width: 100%;
     height: auto;
+}
+
+.button_wrapper {
+    padding: 1rem 1rem;
+    text-align: center;
+}
+
+button {
+    white-space: nowrap;
+    width: calc(100% - 4rem);
+    margin: 0 auto;
+    padding: 0.5rem 2rem;
+
+    font-family: 'Source Sans Pro';
+    font-size: 1.5rem;
+    letter-spacing: 0.1rem;
+    font-weight: 400;
+
+    background-color: var(--bg-color);
+
+    color: var(--accent-color);
+    border: solid 2px var(--accent-color);
+    border-radius: 1rem;
+    box-shadow: 4px 4px 0px var(--bg-color-dimmed);
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+}
+
+button:hover {
+    color: var(--bg-color);
+    background-color: var(--accent-color);
+    transition: all 0.2s ease-out;
 }
