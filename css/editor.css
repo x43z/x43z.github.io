@@ -150,7 +150,9 @@ body {
     line-height: 2.75rem;
 }
 
-.button-group a {
+button {
+    all: unset;
+    cursor: pointer;
     width: 100%;
     flex-basis: 0;
     flex-grow: 1;
@@ -165,7 +167,7 @@ body {
     background-image: linear-gradient(-45deg, var(--neumorphic-button-gradient), transparent);
 }
 
-.button-group a:hover {
+button:hover {
     background-color: var(--bg-color-focus);
 }
 
