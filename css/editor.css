@@ -74,12 +74,13 @@
 :root {
     --bg-color: #1a1b1c;
     --bg-color-inset: #1a1b1c;
-    --bg-color-dimmed: #202224;
+    --bg-color-dimmed: #202224ee;
     --focus-color: #666c6e;
     --accent-color: #44484b;
     --foreground-color: #e6e6e6;
     --foreground-color-dimmed: #d4d4d4;
     --shadow-dark: #0000003b;
+    --navbar-height: 3.75rem;
 }
 
 *,
@@ -116,9 +117,10 @@ body {
     background: var(--bg-color);
 }
 
-.left-bar {
-    position: absolute;
-    width: 21rem;
+#menu {
+    position: fixed;
+    top: var(--navbar-height);
+    right: 0;
     margin: 0;
     padding: 0;
     height: 100%;
@@ -127,23 +129,35 @@ body {
     align-items: flex-start;
     flex-direction: column;
     gap: 1rem;
+
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.25s, opacity 0.25s ease-in-out;
+    width: 21rem;
 }
 
-.content {
-    margin: 0 auto;
-    height: 100%;
-    width: 100%;
+@media screen and (max-width: 550px) {
+    #menu {
+        width: 100%;
+    }
+}
+
+#hamburger input:checked~#menu {
+    visibility: visible;
+    transition: visibility 0s, opacity 0.25s ease-in-out;
+    opacity: 1;
 }
 
 /* buttons */
 .button-group {
-    padding: 0 1.0rem;
+    margin: 0, auto;
+    padding: 0.5rem;
     display: flex;
     justify-content: flex-start;
     align-items: stretch;
     gap: 0 1rem;
-    width: 100%;
-    line-height: 2.75rem;
+    width: 18rem;
+
 }
 
 button {
@@ -165,6 +179,18 @@ button {
 
 button:hover {
     background-color: var(--focus-color);
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: var(--navbar-height);
+    background-color: var(--bg-color-dimmed);
 }
 
 /* radio buttons */
@@ -212,7 +238,7 @@ button:hover {
     align-items: stretch;
     overflow-x: hidden;
 
-    margin: 1rem;
+    margin: 0;
     padding: 1.25rem;
     gap: 0.5rem 0;
 
@@ -475,4 +501,60 @@ input[type=range]::-webkit-slider-runnable-track {
 
     box-shadow: 1px 1px 2px var(--neumorphic-shadow-dark);
 
+}
+
+#hamburger {
+    display: block;
+    position: fixed;
+    top: 13px;
+    right: 17px;
+
+    z-index: 1;
+
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#hamburger input[type=checkbox] {
+    display: block;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+
+    cursor: pointer;
+
+    opacity: 0;
+    z-index: 2;
+
+    -webkit-touch-callout: none;
+}
+
+#hamburger span {
+    display: block;
+    width: 30px;
+    height: 3px;
+    margin: 6px;
+    position: relative;
+
+    background: #999999;
+
+    z-index: 1;
+
+    transition: all 0.25s ease-in-out;
+}
+
+#hamburger input:checked~:nth-child(2) {
+    transform: translate(0, 9px) rotate(-45deg);
+}
+
+#hamburger input:checked~:nth-child(3) {
+    opacity: 0;
+}
+
+#hamburger input:checked~:nth-child(4) {
+    transform: translate(0, -9px) rotate(45deg);
+}
+
+#hamburger input:checked~#menu {
+    transform: none;
 }
