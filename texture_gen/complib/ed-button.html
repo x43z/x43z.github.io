@@ -1,0 +1,133 @@
+<template id="ed-button-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            all: unset;
+            margin: 0;
+            padding: 0;
+            width: 8rem;
+            height: 2.0rem;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0 0.5rem;
+
+            color: var(--foreground-color);
+
+            font-family: 'Source Sans Pro';
+            font-weight: 400;
+            font-size: 1.0rem;
+            text-decoration: none;
+            text-align: center;
+            white-space: nowrap;
+
+            border-radius: 0.0rem;
+            border: 0.125rem solid transparent;
+            background-color: var(--accent-color);
+            box-shadow: 0.25rem 0.25rem var(--shadow-color);
+            cursor: pointer;
+
+            transition: all 0.2s ease-out;
+        }
+
+        button:is(:hover, :focus) {
+            background-color: var(--focus-color);
+        }
+
+        :host(.secondary) button {
+            background-color: var(--bg-color-light);
+            border: 0.125rem solid var(--accent-color);
+        }
+
+        :host(.secondary) button:is(:hover, :focus) {
+            background-color: var(--focus-color);
+            border: 0.125rem solid transparent;
+        }
+
+        :host(.tertiary) button {
+            width: auto;
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        :host(.tertiary) button:is(:hover, :focus) {
+            border: 0.125rem solid transparent;
+        }
+
+        :host(.icon) button {
+            background-color: transparent;
+            box-shadow: none;
+            width: 2.0rem;
+            height: 2.0rem;
+        }
+
+        :host(.icon) button:is(:hover, :focus) {
+            background-color: var(--accent-color);
+        }
+
+        :host(.stretch) {
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        :host(.stretch) button {
+            width: 100%;
+        }
+
+        ::slotted(*) {
+            user-select: none;
+            cursor: pointer;
+        }
+    </style>
+    <button>
+        <slot name="icon"></slot>
+        <slot></slot>
+        <slot name="action-icon"></slot>
+    </button>
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-button",
+        class extends HTMLElement {
+            //https://webkit.org/blog/13711/elementinternals-and-form-associated-custom-elements/
+            static formAssociated = true;
+
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-button-template").content.cloneNode(true);
+
+                this.name = this.getAttribute("name");
+                this.value = this.getAttribute("value");
+
+                this.internals_ = this.attachInternals();
+                this.attachShadow({ mode: "open" }).append(template_clone);
+
+                this.addEventListener("click", () => {
+                    for (const el of this.internals_.form?.elements || []) {
+                        if (el.name === this.name) {
+                            // Reset form value of all elements with same name.
+                            // This is needed to know which button submitted the form, since for now we cant pass this to requestSubmit
+                            // and need to set this with setFormValue.see https://github.com/WICG/webcomponents/issues/814
+                            el.internals_.setFormValue(undefined, undefined);
+                        }
+                    }
+                    this.internals_.setFormValue(this.value, this.value);
+                    this.internals_.form?.requestSubmit();
+                });
+            }
+        },
+    );
+</script>

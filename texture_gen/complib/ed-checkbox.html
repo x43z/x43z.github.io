@@ -1,0 +1,87 @@
+<template id="ed-checkbox-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        .checkbox {
+            position: relative;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            padding: 0;
+            margin: 0 auto;
+            gap: 0 1rem;
+            width: 100%;
+        }
+
+        .checkbox input {
+            appearance: none;
+            outline: none;
+            padding: 0;
+            margin: 0;
+
+            width: var(--input-height);
+            height: var(--input-height);
+
+            border: none;
+            border-radius: var(--input-border-radius);
+            background: var(--bg-color-dark);
+            box-shadow: inset 0.1875rem 0.1875rem var(--shadow-color);
+
+            cursor: pointer;
+        }
+
+        .checkbox ed-icon {
+            position: absolute;
+            visibility: hidden;
+            top: 0.25rem;
+            left: 0.25rem;
+
+            box-shadow: 1px 1px 2px var(--neumorphic-shadow-color);
+            pointer-events: none;
+        }
+
+        input:checked+ed-icon {
+            visibility: visible;
+        }
+    </style>
+    <div class="checkbox">
+        <input type="checkbox">
+        <ed-icon icon="check-solid"></ed-icon>
+    </div>
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-checkbox",
+        class extends HTMLElement {
+            static formAssociated = true;
+
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-checkbox-template").content.cloneNode(true);
+
+                this.checkbox = template_clone.querySelector('input');
+
+                this.name = this.getAttribute("name");
+                this.value = this.getAttribute("value");
+
+                this.internals_ = this.attachInternals();
+                this.attachShadow({ mode: "open" }).append(template_clone);
+
+                this.checkbox.addEventListener("input", (event) => {
+                    if (this.checkbox.checked) {
+                        this.internals_.setFormValue(this.name, this.name);
+                    } else {
+                        this.internals_.setFormValue(undefined, undefined);
+                    }
+                    this.dispatchEvent(new CustomEvent("input", { detail: this.checkbox.checked }))
+                });
+            }
+        },
+    );
+</script>

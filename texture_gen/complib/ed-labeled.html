@@ -1,0 +1,38 @@
+<template id="ed-labeled-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            margin: 0;
+            padding: 0;
+            line-height: 1.25;
+        }
+
+        .helptext {
+            color: var(--helptext-color);
+            font-size: 0.875rem;
+        }
+    </style>
+    <slot name="label"></slot>
+    <slot></slot>
+    <div class="helptext">
+        <slot name="helptext"></slot>
+    </div>
+</template>
+
+<script type="module">
+    globalThis.customElements.define(
+        "ed-labeled",
+        class extends HTMLElement {
+            constructor() {
+                super();
+                const template_clone = document.getElementById("ed-labeled-template").content.cloneNode(true);
+                this.attachShadow({ mode: "open" }).append(template_clone);
+            }
+        },
+    );
+</script>

@@ -1,0 +1,93 @@
+<template id="ed-number-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+
+            font-family: 'IBM Plex Mono';
+            font-size: 0.875rem;
+            font-weight: 400;
+        }
+
+        input[type=textbox] {
+            all: unset;
+            box-sizing: border-box;
+
+            margin: 0;
+            padding: 0 0.5rem;
+            height: var(--input-height);
+            width: 100%;
+
+            border: none;
+            border-radius: var(--input-border-radius);
+            background: var(--bg-color-dark);
+
+            color: var(--foreground-color-dark);
+            box-shadow: inset 0.1875rem 0.1875rem var(--shadow-color);
+        }
+
+        input[type=textbox]:invalid {
+            background: #6b2723;
+        }
+
+        input[type=textbox]:focus {
+            background-color: var(--focus-color);
+        }
+
+        input[type=textbox]:focus:invalid {
+            background: #833d3a;
+        }
+    </style>
+    <input type="textbox" pattern="([0-9]+(\.[0-9]*)?|\.[0-9]+)">
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-number",
+        class extends HTMLElement {
+            static formAssociated = true;
+
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-number-template").content.cloneNode(true);
+
+                this.input = template_clone.querySelector('input');
+                this.input.setAttribute("value", this.getAttribute("value") ?? "");
+
+                this.name = this.getAttribute("name");
+                this.value = this.getAttribute("value");
+                this.min = this.getAttribute("min");
+                this.max = this.getAttribute("max");
+
+                this.internals_ = this.attachInternals();
+                this.attachShadow({ mode: "open" }).append(template_clone);
+                this.internals_.setFormValue(this.value, this.value);
+
+                this.input.addEventListener("input", (event) => {
+                    this.value = event.target.value;
+                    this.internals_.setFormValue(this.value, this.value);
+                    this.updateValidity(this.value);
+                    this.dispatchEvent(new CustomEvent("input", { detail: event.target.value }))
+                });
+            }
+
+            updateValidity(newValue) {
+                const number_val = Number(newValue);
+                if (isNaN(number_val)) {
+                    this.internals_.setValidity({ NaN: true }, 'not a number');
+                    this.internals_.reportValidity();
+                } else {
+                    this.internals_.setValidity({});
+                }
+            }
+        },
+    );
+</script>

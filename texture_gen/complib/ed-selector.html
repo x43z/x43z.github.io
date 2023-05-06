@@ -1,0 +1,99 @@
+<template id="ed-selector-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            position: relative;
+            margin: 0;
+            padding: 0;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            padding: 0 0.5rem;
+            margin: 0 auto;
+
+            width: 100%;
+            height: 1.5rem;
+
+            flex-grow: 1;
+
+            border: none;
+            border-radius: 0.25rem;
+            background: var(--bg-color-dark);
+
+            color: var(--foreground-color);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 400;
+
+            box-shadow: inset 0.1875rem 0.1875rem var(--shadow-color);
+        }
+
+        select:focus {
+            outline: none;
+        }
+
+        ed-icon {
+            position: absolute;
+            right: 0.25rem;
+            top: 0.25rem;
+            transition: all 0.2s linear;
+        }
+
+        option {
+            appearance: none;
+        }
+    </style>
+    <div class="container">
+        <select id="selector"></select>
+        <ed-icon icon="angle-down-solid" slot="action-icon"></ed-icon>
+    </div>
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-selector",
+        class extends HTMLElement {
+            static formAssociated = true;
+
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-selector-template").content.cloneNode(true);
+                this.select = template_clone.querySelector('select');
+
+                this.name = this.getAttribute("name");
+                this.value = this.getAttribute("value");
+
+                this.internals_ = this.attachInternals();
+                this.attachShadow({ mode: "open" }).append(template_clone)
+                this.internals_.setFormValue(this.value, this.value);
+
+                this.select.addEventListener("change", (event) => {
+                    this.value = event.target.value;
+                    this.internals_.setFormValue(this.value, this.value);
+                    this.dispatchEvent(new CustomEvent("change", { detail: event.target.value }))
+                });
+            }
+
+            connectedCallback() {
+                // attach light DOM children to shadow dom select, since options would not work in slots
+                setTimeout(() => {
+                    this.select.append(...this.children);
+                })
+            }
+        },
+    );
+</script>

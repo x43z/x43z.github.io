@@ -1,0 +1,122 @@
+<template id="ed-modal-dialog-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        dialog {
+            margin: 0, 0;
+            padding: 4rem 4rem;
+            width: calc(100% - 2rem);
+            max-width: 36rem;
+            color: var(--foreground-color);
+            background-color: var(--bg-color-light);
+
+            border-radius: 0.0rem;
+            border: none;
+            box-shadow: 0.1875rem 0.1875rem var(--shadow-color);
+        }
+
+        dialog::backdrop {
+            background-color: #111111aa;
+        }
+
+        dialog:not([open]) {
+            display: none;
+        }
+
+        h1 {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+
+            font-family: 'Source Sans Pro';
+            font-weight: 400;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            border-bottom: 0.125rem solid var(--accent-color);
+        }
+
+        .inputs-wrapper {
+            margin: 0;
+            padding: 2.0rem 0;
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: stretch;
+            gap: 0.5rem 0;
+        }
+
+        .buttons-wrapper {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0 1rem;
+        }
+
+        .close-button-wrapper {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+        }
+    </style>
+    <dialog>
+        <form method="dialog">
+            <h1>
+                <slot name="title" class="title"></slot>
+            </h1>
+            <div class="inputs-wrapper">
+                <slot></slot>
+            </div>
+            <div class="buttons-wrapper">
+                <ed-button name="submitter" value="ok">OK</ed-button>
+                <ed-button class="secondary" name="submitter" value="cancel">
+                    Cancel
+                </ed-button>
+            </div>
+            <div class="close-button-wrapper">
+                <ed-button class="icon" name="submitter" value="cancel">
+                    <ed-icon icon="xmark-solid" slot="icon"></ed-icon>
+                </ed-button>
+            </div>
+        </form>
+    </dialog>
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-modal-dialog",
+        class extends HTMLElement {
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-modal-dialog-template").content.cloneNode(true);
+                const form = template_clone.querySelector('form');
+                const ok_button = template_clone.querySelector('#ok-button');
+
+                const default_slot = template_clone.querySelector("slot:not([name])");
+                const inputs_wrapper = template_clone.querySelector(".inputs-wrapper");
+                default_slot.onslotchange = (event) => {
+                    // move elements from default slot into shadow dom so they affect the form.
+                    inputs_wrapper.append(...default_slot.assignedElements());
+                };
+
+                this.dialog = template_clone.querySelector('dialog');
+                this.attachShadow({ mode: "open" }).append(template_clone);
+
+                this.dialog.addEventListener('close', () => {
+                    const formdata = new FormData(form)
+                    this.dispatchEvent(new CustomEvent("close", { detail: formdata }))
+                });
+            }
+        }
+    );
+</script>

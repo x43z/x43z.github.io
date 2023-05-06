@@ -1,0 +1,158 @@
+<template id="ed-slider-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            /* used only to set exact height for range */
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            gap: 0 1rem;
+            width: 100%;
+            height: 1.5rem;
+        }
+
+        input[type=range] {
+            all: unset;
+
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            flex-grow: 1;
+
+            height: var(--input-height);
+            background: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            /* all: unset; breaks the slider positioning... */
+            appearance: none;
+
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 0.5rem;
+
+            border-radius: var(--input-border-radius);
+            background: var(--bg-color-dark);
+
+            box-shadow: inset 3px 3px var(--shadow-color);
+        }
+
+        input[type=range]::-moz-range-track {
+            all: unset;
+
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 0.5rem;
+
+            border-radius: var(--input-border-radius);
+            background: var(--bg-color-dark);
+
+            box-shadow: inset 3px 3px var(--shadow-color);
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            /* all: unset; breaks the slider */
+            appearance: none;
+
+            /* subtract half of slider size to center ...*/
+            margin-top: calc((1.25rem - 0.5rem) / -2);
+
+            width: 0.8125rem;
+            height: 1.25rem;
+            border-radius: 0.25rem;
+
+            background-color: var(--accent-color);
+            box-shadow: 2px 2px var(--shadow-color);
+
+            cursor: pointer;
+        }
+
+        input[type=range]:hover::-webkit-slider-thumb {
+            background-color: var(--focus-color);
+        }
+
+        input[type=range]::-moz-range-thumb {
+            all: unset;
+
+            width: 0.8125rem;
+            height: 1.25rem;
+            border-radius: 0.25rem;
+
+            background-color: var(--accent-color);
+            box-shadow: 2px 2px var(--shadow-color);
+
+            cursor: pointer;
+        }
+
+        input[type=range]:hover::-moz-range-thumb {
+            background-color: var(--focus-color);
+        }
+
+        ed-number {
+            width: calc(12ch + 0.5rem * 2);
+        }
+    </style>
+    <input type="range">
+    <ed-number></ed-number>
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-slider",
+        class extends HTMLElement {
+            static formAssociated = true;
+
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-slider-template").content.cloneNode(true);
+                this.range = template_clone.querySelector('input[type="range"]');
+                this.ed_number = template_clone.querySelector('ed-number');
+
+                // delegate range attribs
+                this.range.setAttribute("min", this.getAttribute("min"));
+                this.range.setAttribute("max", this.getAttribute("max"));
+                this.range.setAttribute("step", this.getAttribute("step"));
+                this.range.setAttribute("value", this.getAttribute("value") ?? "");
+
+                this.ed_number.setAttribute("value", this.getAttribute("value") ?? "");
+
+                this.name = this.getAttribute("name");
+                this.value = this.getAttribute("value");
+
+                this.internals_ = this.attachInternals();
+                this.attachShadow({ mode: "open" }).append(template_clone);
+
+                this.internals_.setFormValue(this.value, this.value);
+            }
+
+            connectedCallback() {
+                setTimeout(() => {
+                    const input = this.ed_number.input;
+                    input.value = this.range.value;
+                    input.addEventListener("input", (event) => {
+                        this.value = event.target.value;
+                        this.range.value = this.value;
+                        this.internals_.setFormValue(this.value, this.value);
+                        this.dispatchEvent(new CustomEvent("input", { detail: event.target.value }))
+                    });
+                    this.range.addEventListener("input", (event) => {
+                        this.value = event.target.value;
+                        input.value = this.value;
+                        this.internals_.setFormValue(this.value, this.value);
+                        this.dispatchEvent(new CustomEvent("input", { detail: event.target.value }))
+                    });
+                })
+            }
+        },
+    );
+</script>

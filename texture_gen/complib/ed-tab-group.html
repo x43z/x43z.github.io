@@ -1,0 +1,77 @@
+<template id="ed-tab-group-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.0rem 1.0rem;
+        }
+    </style>
+    <div class="container">
+        <slot></slot>
+    </div>
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-tab-group",
+        class extends HTMLElement {
+            slotted_tab_buttons = [];
+
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-tab-group-template").content.cloneNode(true);
+
+                const default_slot = template_clone.querySelector("slot:not([name])");
+                default_slot.addEventListener("slotchange", (event) => {
+                    this.slotted_tab_buttons = default_slot.assignedElements().filter((el) => el.tagName === "ED-TAB-BUTTON");
+                    this.updateTabButtons();
+                    this.slotted_tab_buttons.forEach(el => el.onclick = (event) => { this.handleSlottedClick(event, el) });
+                });
+
+                this.name = this.getAttribute("name");
+                this.value = this.getAttribute("value");
+                this.collapsible = this.getAttribute("collapsible"); // collapse (set value to none) on clicking active tab
+
+                this.attachShadow({ mode: "open" }).append(template_clone);
+            }
+
+            handleSlottedClick(event, el) {
+                if (this.collapsible && this.value === el.value) {
+                    this.value = null;
+                } else {
+                    this.value = el.value;
+                }
+                this.updateTabButtons();
+                this.dispatchEvent(new CustomEvent("change", { detail: this.value }))
+            }
+
+            updateTabButtons() {
+                this.slotted_tab_buttons.forEach(el => el.setAttribute('checked', this.value === el.value));
+            }
+
+            connectedCallback() {
+                setTimeout(() => {
+                    this.updateTabButtons();
+                });
+            }
+
+        },
+    );
+</script>

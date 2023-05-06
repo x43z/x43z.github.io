@@ -24,12 +24,12 @@ const saveFile = (blob) => {
     const link = document.createElement("a");
     link.style.display = "none";
     link.href = url;
-    link.download = "reaction_diffusion"; // TODO: filename s param
+    link.download = "reaction_diffusion";
 
     document.body.appendChild(link);
     link.click();
 
-    // Apperantly needed for firefox
+    // apparently need setTimeout for firefox
     setTimeout(() => {
         URL.revokeObjectURL(link.href);
         link.parentNode.removeChild(link);
