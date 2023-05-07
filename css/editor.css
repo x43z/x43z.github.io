@@ -241,6 +241,10 @@ span {
     margin: 0;
 }
 
+canvas {
+    overscroll-behavior: none;
+}
+
 .main-canvas {
     display: block;
     margin: 0 auto;
