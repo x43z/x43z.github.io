@@ -115,6 +115,7 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    overscroll-behavior: none;
 
     font-family: 'Source Sans Pro';
     font-weight: 400;
