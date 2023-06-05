@@ -77,6 +77,9 @@
     --foreground-color-dimmed: #d4d4d4;
     --foreground-color-dimmed-2: #999999;
     --accent-color: #ff6044;
+    --header-font: 'IBM Plex Serif', serif;
+    --running-text-font: 'Source Sans Pro', sans-serif;
+    --navigation-font: 'Source Sans Pro', sans-serif;
 }
 
 /*:root {
@@ -106,8 +109,9 @@ body {
 
     background-color: var(--bg-color);
     color: var(--foreground-color);
-    font-family: Source Sans Pro;
+    font-family: var(--running-text-font);
     font-size: 1rem;
+    line-height: 1.5;
     font-weight: 400;
 }
 
@@ -116,7 +120,7 @@ body {
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
-    line-height: 3.75rem;
+    line-height: 5.0rem;
 }
 
 .nav-logo {
@@ -125,6 +129,7 @@ body {
     text-align: center;
     user-select: none;
 
+    font-family: 'Source Sans Pro';
     font-size: 1.5rem;
     letter-spacing: 0.2rem;
 }
@@ -137,7 +142,7 @@ body {
 .nav-links {
     flex-grow: 99999;
 
-    font-family: Source Sans Pro;
+    font-family: var(--navigation-font);
     font-size: 1rem;
     font-weight: 400;
 
@@ -209,26 +214,16 @@ body {
     padding: 1rem 2.5rem;
 }
 
-.linklist {
-    /* center h */
-    margin: 1rem auto;
-    padding: 1rem 2.5rem;
-
-    text-align: center;
-    max-width: 56.25rem;
-    line-height: 2.5;
-}
-
 .section-header {
     margin: 5rem auto 0 auto;
     padding: 1rem 2.5rem;
     width: calc(100% - 2.5rem * 2);
     max-width: calc(56.25rem - 2.5rem * 2);
 
-    font-family: Source Sans Pro;
+    font-family: var(--navigation-font);
     font-size: 1rem;
     letter-spacing: 0.125rem;
-    font-weight: 300;
+    font-weight: 400;
 
     color: var(--foreground-color-dimmed-2);
 
@@ -242,7 +237,7 @@ a {
 h1 {
     margin: 2rem 0;
     padding: 0 1rem;
-    font-family: 'IBM Plex Serif';
+    font-family: var(--header-font);
     font-size: 3rem;
     font-weight: 200;
 }
@@ -250,7 +245,7 @@ h1 {
 h2 {
     margin: 1rem 0;
     padding: 1rem;
-    font-family: 'IBM Plex Serif';
+    font-family: var(--header-font);
     font-size: 1.25rem;
     font-style: italic;
     font-weight: 300;
@@ -259,33 +254,18 @@ h2 {
     text-align: justify;
 }
 
-strong {
-    white-space: nowrap;
-    padding: 0 1rem;
-    font-family: 'IBM Plex Serif';
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 300;
-
-}
-
 p {
     margin: 1rem auto;
     padding: 0 1rem;
-    font-family: 'IBM Plex Serif';
-    font-size: 1rem;
-    font-weight: 400;
     text-align: justify;
 }
 
 footer {
     height: 33vh;
-    margin: 1rem auto;
+    margin: 0rem auto;
     padding: 1rem 2.5rem;
 
-    text-align: center;
     max-width: 56.25rem;
-    line-height: 2.5;
 }
 
 .img-backdrop {
@@ -306,12 +286,12 @@ img {
 button {
     white-space: nowrap;
     width: calc(100% - 4rem);
-    max-width: 19.75rem;
+    max-width: 12.5rem;
     margin: 0 auto;
-    padding: 0.5rem 2rem;
+    padding: 0.25rem 1rem;
 
-    font-family: 'Source Sans Pro';
-    font-size: 1.5rem;
+    font-family: var(--navigation-font);
+    font-size: 1.25rem;
     letter-spacing: 0.1rem;
     font-weight: 400;
 
@@ -319,8 +299,8 @@ button {
 
     color: var(--bg-color);
     border: solid 2px var(--accent-color);
-    border-radius: 1rem;
-    box-shadow: 4px 4px 0px var(--bg-color-dimmed);
+    border-radius: 0.0rem;
+    box-shadow: 0.25rem 0.25rem 0px var(--bg-color-dimmed);
     transition: all 0.2s ease-out;
     cursor: pointer;
 }
