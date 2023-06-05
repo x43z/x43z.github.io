@@ -77,18 +77,18 @@
     --foreground-color-dimmed: #d4d4d4;
     --foreground-color-dimmed-2: #999999;
     --accent-color: #ff6044;
-    --header-font: 'IBM Plex Serif', serif;
-    --running-text-font: 'Source Sans Pro', sans-serif;
-    --navigation-font: 'Source Sans Pro', sans-serif;
-}
 
-/*:root {
-    --foreground-color: #252528;
+    /*--foreground-color: #252528;
     --bg-color: #e6e6e6;
     --foreground-color-dimmed: #3b4042;
     --bg-color-dimmed: #d4d4d4;
-    --accent-color: #ff6044;
-}*/
+    --accent-color: #ff6044;*/
+
+    --header-font: 'IBM Plex Serif', serif;
+    --running-text-font: 'IBM Plex Serif', seri;
+    --navigation-font: 'Source Sans Pro', sans-serif;
+}
+
 
 html {
     box-sizing: border-box;
@@ -110,9 +110,8 @@ body {
     background-color: var(--bg-color);
     color: var(--foreground-color);
     font-family: var(--running-text-font);
-    font-size: 1rem;
-    line-height: 1.5;
-    font-weight: 400;
+    font-size: 1.125rem;
+    font-weight: 300;
 }
 
 .nav-wrapper {
@@ -239,14 +238,14 @@ h1 {
     padding: 0 1rem;
     font-family: var(--header-font);
     font-size: 3rem;
-    font-weight: 200;
+    font-weight: 300;
 }
 
 h2 {
     margin: 1rem 0;
     padding: 1rem;
     font-family: var(--header-font);
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     font-style: italic;
     font-weight: 300;
     background-color: var(--bg-color-dimmed);
@@ -262,10 +261,6 @@ p {
 
 footer {
     height: 33vh;
-    margin: 0rem auto;
-    padding: 1rem 2.5rem;
-
-    max-width: 56.25rem;
 }
 
 .img-backdrop {
@@ -286,12 +281,12 @@ img {
 button {
     white-space: nowrap;
     width: calc(100% - 4rem);
-    max-width: 12.5rem;
+    max-width: 14.5rem;
     margin: 0 auto;
-    padding: 0.25rem 1rem;
+    padding: 0.5rem 1rem;
 
     font-family: var(--navigation-font);
-    font-size: 1.25rem;
+    font-size: 1.5rem;
     letter-spacing: 0.1rem;
     font-weight: 400;
 
@@ -299,7 +294,7 @@ button {
 
     color: var(--bg-color);
     border: solid 2px var(--accent-color);
-    border-radius: 0.0rem;
+    border-radius: 0.25rem;
     box-shadow: 0.25rem 0.25rem 0px var(--bg-color-dimmed);
     transition: all 0.2s ease-out;
     cursor: pointer;
