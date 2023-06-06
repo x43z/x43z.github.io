@@ -87,6 +87,8 @@
     --header-font: 'IBM Plex Serif', serif;
     --running-text-font: 'IBM Plex Serif', seri;
     --navigation-font: 'Source Sans Pro', sans-serif;
+
+    --base-width: 56.25rem;
 }
 
 
@@ -191,7 +193,7 @@ body {
     /* center h */
     margin: 0 auto;
 
-    max-width: 56.25rem;
+    max-width: var(--base-width);
     padding: 1rem 2.5rem;
 }
 
@@ -204,7 +206,7 @@ body {
     align-items: stretch;
     flex-wrap: wrap;
 
-    max-width: 56.25rem;
+    max-width: var(--base-width);
 }
 
 .content-double-item {
@@ -215,9 +217,9 @@ body {
 
 .section-header {
     margin: 5rem auto 0 auto;
-    padding: 1rem 2.5rem;
+    padding: 1rem 1rem;
     width: calc(100% - 2.5rem * 2);
-    max-width: calc(56.25rem - 2.5rem * 2);
+    max-width: calc(var(--base-width) - 2.5rem * 2);
 
     font-family: var(--navigation-font);
     font-size: 1rem;
@@ -235,17 +237,16 @@ a {
 
 h1 {
     margin: 2rem 0;
-    padding: 0 1rem;
     font-family: var(--header-font);
     font-size: 3rem;
     font-weight: 300;
 }
 
 h2 {
-    margin: 1rem 0;
+    margin: 1rem -1rem;
     padding: 1rem;
     font-family: var(--header-font);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-style: italic;
     font-weight: 300;
     background-color: var(--bg-color-dimmed);
@@ -255,7 +256,6 @@ h2 {
 
 p {
     margin: 1rem auto;
-    padding: 0 1rem;
     text-align: justify;
 }
 
@@ -264,7 +264,8 @@ footer {
 }
 
 .img-backdrop {
-    padding: 0 1rem;
+    margin: 0 auto;
+    padding: 0;
 }
 
 img {
