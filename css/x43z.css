@@ -73,16 +73,21 @@
 :root {
     --bg-color: #252528;
     --bg-color-dimmed: #3b4042;
+    --shadow-color: #3b4042;
     --foreground-color: #e6e6e6;
     --foreground-color-dimmed: #d4d4d4;
     --foreground-color-dimmed-2: #999999;
     --accent-color: #ff6044;
 
-    /*--foreground-color: #252528;
+    /*
     --bg-color: #e6e6e6;
-    --foreground-color-dimmed: #3b4042;
     --bg-color-dimmed: #d4d4d4;
-    --accent-color: #ff6044;*/
+    --shadow-color: #999999;
+    --foreground-color: #3b4042;
+    --foreground-color-dimmed: #595f61;
+    --foreground-color-dimmed-2: #595f61;
+    --accent-color: #ff6044;
+    */
 
     --header-font: 'IBM Plex Serif', serif;
     --running-text-font: 'IBM Plex Serif', seri;
@@ -296,7 +301,7 @@ button {
     color: var(--bg-color);
     border: solid 2px var(--accent-color);
     border-radius: 0.25rem;
-    box-shadow: 0.25rem 0.25rem 0px var(--bg-color-dimmed);
+    box-shadow: 0.25rem 0.25rem 0px var(--shadow-color);
     transition: all 0.2s ease-out;
     cursor: pointer;
 }
