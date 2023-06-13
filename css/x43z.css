@@ -71,6 +71,7 @@
 }
 
 :root {
+    --navbar-color: #252528f1;
     --bg-color: #252528;
     --bg-color-dimmed: #3b4042;
     --shadow-color: #3b4042;
@@ -121,12 +122,21 @@ body {
     font-weight: 300;
 }
 
+.top-spacer {
+    height: 5.0rem;
+}
+
 .nav-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
     display: flex;
     justify-content: center;
     align-items: stretch;
     flex-wrap: wrap;
     line-height: 5.0rem;
+    background-color: var(--navbar-color);
 }
 
 .nav-logo {
