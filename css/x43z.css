@@ -10,6 +10,28 @@
     /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 300;
+    src: local(''),
+        url('../fonts/source-sans-pro-v21-latin-ext_latin-300.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/source-sans-pro-v21-latin-ext_latin-300.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: italic;
+    font-weight: 300;
+    src: local(''),
+        url('../fonts/source-sans-pro-v21-latin-ext_latin-300italic.woff2') format('woff2'),
+        /* Chrome 26+, Opera 23+, Firefox 39+ */
+        url('../fonts/source-sans-pro-v21-latin-ext_latin-300italic.woff') format('woff');
+    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+
 /* ibm-plex-serif-200 - latin-ext_latin */
 @font-face {
     font-family: 'IBM Plex Serif';
@@ -58,18 +80,6 @@
     /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
-/* ibm-plex-mono-regular - latin-ext_latin */
-@font-face {
-    font-family: 'IBM Plex Mono';
-    font-style: normal;
-    font-weight: 400;
-    src: local(''),
-        url('../fonts/ibm-plex-mono-v15-latin-ext_latin-regular.woff2') format('woff2'),
-        /* Chrome 26+, Opera 23+, Firefox 39+ */
-        url('../fonts/ibm-plex-mono-v15-latin-ext_latin-regular.woff') format('woff');
-    /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-}
-
 :root {
     --navbar-color: #252528f1;
     --bg-color: #252528;
@@ -90,8 +100,9 @@
     --accent-color: #ff6044;
     */
 
-    --header-font: 'IBM Plex Serif', serif;
-    --running-text-font: 'IBM Plex Serif', seri;
+    --header-font: 'Source Sans Pro', sans-serif;
+    --subheader-font: 'IBM Plex Serif', serif;
+    --running-text-font: 'Source Sans Pro', sans-serif;
     --navigation-font: 'Source Sans Pro', sans-serif;
 
     --base-width: 56.25rem;
@@ -118,8 +129,8 @@ body {
     background-color: var(--bg-color);
     color: var(--foreground-color);
     font-family: var(--running-text-font);
-    font-size: 1.125rem;
-    font-weight: 300;
+    font-size: 1.0rem;
+    font-weight: 400;
 }
 
 .top-spacer {
@@ -147,6 +158,7 @@ body {
 
     font-family: 'Source Sans Pro';
     font-size: 1.5rem;
+    font-weight: 400;
     letter-spacing: 0.2rem;
 }
 
@@ -159,7 +171,8 @@ body {
     flex-grow: 99999;
 
     font-family: var(--navigation-font);
-    font-size: 1rem;
+    font-size: 1.0rem;
+    letter-spacing: 0.05rem;
     font-weight: 400;
 
     display: flex;
@@ -238,7 +251,7 @@ body {
 
     font-family: var(--navigation-font);
     font-size: 1rem;
-    letter-spacing: 0.125rem;
+    letter-spacing: 0.05rem;
     font-weight: 400;
 
     color: var(--foreground-color-dimmed-2);
@@ -260,8 +273,8 @@ h1 {
 h2 {
     margin: 1rem -1rem;
     padding: 1rem;
-    font-family: var(--header-font);
-    font-size: 1.25rem;
+    font-family: var(--subheader-font);
+    font-size: 1.125rem;
     font-style: italic;
     font-weight: 300;
     background-color: var(--bg-color-dimmed);
@@ -302,8 +315,8 @@ button {
     padding: 0.5rem 1rem;
 
     font-family: var(--navigation-font);
-    font-size: 1.5rem;
-    letter-spacing: 0.1rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.125rem;
     font-weight: 400;
 
     background-color: var(--accent-color);
