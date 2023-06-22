@@ -48,14 +48,17 @@
 }
 
 :root {
-    --navbar-color: #252528f1;
-    --bg-color: #252528;
+    --navbar-color: #252528;
+    --bg-color: #1a1b1c;
+    --bg-color-card: #252528;
     --bg-color-dimmed: #3b4042;
     --shadow-color: #3b4042;
     --foreground-color: #e6e6e6;
     --foreground-color-dimmed: #d4d4d4;
     --foreground-color-dimmed-2: #999999;
-    --accent-color: #ff6044;
+    --accent-color: #da4c39;
+    --shadow-weak: 0px 2px 3px -1px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0px 4px 6px -3px rgba(0, 0, 0, 0.33);
 
     /*
     --bg-color: #e6e6e6;
@@ -115,6 +118,7 @@ body {
     flex-wrap: wrap;
     line-height: 5.0rem;
     background-color: var(--navbar-color);
+    box-shadow: var(--shadow-weak);
 }
 
 .nav-logo {
@@ -186,9 +190,11 @@ body {
 
 .content-single {
     /* center h */
-    margin: 0 auto;
+    margin: 1.4rem auto;
 
     max-width: var(--base-width);
+    background-color: var(--bg-color-card);
+    box-shadow: var(--shadow-weak);
     padding: 1rem 2.5rem;
 }
 
@@ -204,9 +210,39 @@ body {
     max-width: var(--base-width);
 }
 
-.content-double-item {
-    flex-basis: 23.75rem;
+.card {
+    margin: 1.4rem 0.7rem;
+    width: 23.75rem;
+    max-width: 30.00rem;
     flex-grow: 1;
+
+    background-color: var(--bg-color-card);
+    box-shadow: var(--shadow-weak);
+    padding: 0;
+}
+
+.card-image {
+    margin: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1.0 / 0.75;
+    object-fit: cover;
+}
+
+.card-content {
+    margin: 0;
+    width: 100%;
+    padding: 1rem 2.5rem;
+}
+
+.content-double-item {
+    margin: 1.4rem 0.7rem;
+    width: 23.75rem;
+    max-width: 30.00rem;
+    flex-grow: 1;
+
+    background-color: var(--bg-color-card);
+    box-shadow: var(--shadow-weak);
     padding: 1rem 2.5rem;
 }
 
@@ -231,7 +267,7 @@ a {
 }
 
 h1 {
-    margin: 2rem 0;
+    margin: 0;
     font-family: var(--header-font);
     font-size: 3rem;
     font-weight: 300;
@@ -277,21 +313,21 @@ img {
 button {
     white-space: nowrap;
     width: calc(100% - 4rem);
-    max-width: 14.5rem;
+    max-width: 12.5rem;
     margin: 0 auto;
     padding: 0.5rem 1rem;
 
     font-family: var(--navigation-font);
     font-size: 1.25rem;
-    letter-spacing: 0.125rem;
+    letter-spacing: 0.0625rem;
     font-weight: 400;
 
     background-color: var(--accent-color);
 
-    color: var(--bg-color);
-    border: solid 2px var(--accent-color);
-    border-radius: 0.25rem;
-    box-shadow: 0.25rem 0.25rem 0px var(--shadow-color);
+    color: var(--foreground-color);
+    border: solid 1px var(--accent-color);
+    border-radius: 0.0rem;
+    box-shadow: var(--shadow-strong);
     transition: all 0.2s ease-out;
     cursor: pointer;
 }
