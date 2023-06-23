@@ -56,7 +56,7 @@
     --foreground-color: #e6e6e6;
     --foreground-color-dimmed: #d4d4d4;
     --foreground-color-dimmed-2: #999999;
-    --accent-color: #f34f49;
+    --accent-color: hsl(357, 88%, 62%);
     --shadow-weak: 0px 2px 3px -1px rgba(0, 0, 0, 0.1);
     --shadow-strong: 0px 4px 6px -3px rgba(0, 0, 0, 0.33);
 
