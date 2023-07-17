@@ -108,7 +108,7 @@ body {
 }
 
 .nav-wrapper {
-    position: fixed;
+    /* position: fixed; */
     top: 0;
     left: 0;
     width: 100vw;
@@ -214,6 +214,11 @@ body {
     max-width: 25.75rem;
     flex-grow: 1;
 
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr;
+
+
     background-color: var(--bg-color-card);
     box-shadow: var(--shadow-weak);
     padding: 0;
@@ -231,6 +236,13 @@ body {
     margin: 0;
     width: 100%;
     padding: 1.5rem 2.5rem;
+}
+
+.card-action {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    padding: 2.5rem 2.5rem;
 }
 
 .section-header {
@@ -281,28 +293,19 @@ footer {
     height: 33vh;
 }
 
-.img-backdrop {
-    margin: 0 auto;
-    padding: 0;
-}
-
 img {
     display: block;
     width: 100%;
     height: auto;
 }
 
-.button_wrapper {
-    padding: 1rem 1rem;
-    text-align: center;
-}
-
-button {
+.btn {
+    text-decoration: none;
     white-space: nowrap;
     width: calc(100% - 4rem);
     max-width: 12.5rem;
     margin: 0 auto;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 2rem;
 
     font-family: var(--navigation-font);
     font-size: 1.25rem;
@@ -319,8 +322,15 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.btn:hover {
     color: var(--accent-color);
-    background-color: var(--bg-color);
+    background: none;
     transition: all 0.2s ease-out;
+}
+
+.inactive {
+    color: var(--foreground-color-dimmed-2);
+    border: solid 1px var(--foreground-color-dimmed-2);
+    background: none;
+    pointer-events: none;
 }
