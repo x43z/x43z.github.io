@@ -301,6 +301,8 @@ img {
 
 .btn {
     text-decoration: none;
+    user-select: none;
+
     white-space: nowrap;
     width: calc(100% - 4rem);
     max-width: 12.5rem;
