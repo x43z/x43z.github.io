@@ -250,6 +250,7 @@ body {
     width: 100%;
     text-align: center;
     padding: 2.5rem 2.5rem;
+    padding-top: 0;
 }
 
 .section-header {
