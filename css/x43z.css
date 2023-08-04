@@ -77,6 +77,7 @@
     --header-font: 'Source Sans Pro', sans-serif;
     --subheader-font: 'IBM Plex Serif', serif;
     --running-text-font: 'Source Sans Pro', sans-serif;
+    --running-text-emphasize-font: 'Source Sans Pro', sans-serif;
     --navigation-font: 'Source Sans Pro', sans-serif;
 
     --base-width: 52.9rem;
@@ -140,7 +141,7 @@ body {
     font-family: 'Source Sans Pro';
     font-size: 1.5rem;
     font-weight: 400;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.2em;
 }
 
 .nav-spacer {
@@ -153,7 +154,7 @@ body {
 
     font-family: var(--navigation-font);
     font-size: 1.0rem;
-    letter-spacing: 0.05rem;
+    letter-spacing: 0.05em;
     font-weight: 400;
 
     display: flex;
@@ -283,6 +284,7 @@ h1 {
     font-family: var(--header-font);
     font-size: 3rem;
     font-weight: 300;
+    line-height: 1;
 }
 
 h2 {
@@ -295,11 +297,19 @@ h2 {
     background-color: var(--bg-color-dimmed);
     color: var(--foreground-color-dimmed);
     text-align: justify;
+    line-height: 1;
 }
 
 p {
     margin: 1rem auto;
     text-align: justify;
+}
+
+b {
+    font-variant: small-caps;
+    font-weight: normal;
+    font-family: var(--running-text-emphasize-font);
+    letter-spacing: 0.075em;
 }
 
 footer {
@@ -324,14 +334,13 @@ img {
 
     font-family: var(--navigation-font);
     font-size: 1.25rem;
-    letter-spacing: 0.0625rem;
+    letter-spacing: 0.075em;
     font-weight: 400;
 
     background-color: var(--accent-color);
 
     color: var(--foreground-color);
     border: solid 1px var(--accent-color);
-    border-radius: 0.0rem;
     box-shadow: var(--shadow-button);
     transition: all 0.2s ease-out;
     cursor: pointer;
