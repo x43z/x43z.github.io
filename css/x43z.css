@@ -1,22 +1,71 @@
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: 'Source Sans 3';
     font-style: normal;
-    font-weight: 400;
-    src: url('../fonts/source-sans-pro-v21-latin-ext_latin-regular.woff2') format('woff2');
+    font-weight: 200;
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-200.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: 'Source Sans 3';
+    font-style: italic;
+    font-weight: 200;
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-200italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
     font-style: normal;
     font-weight: 300;
-    src: url('../fonts/source-sans-pro-v21-latin-ext_latin-300.woff2') format('woff2');
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-300.woff2') format('woff2');
 }
 
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family: 'Source Sans 3';
     font-style: italic;
     font-weight: 300;
-    src: url('../fonts/source-sans-pro-v21-latin-ext_latin-300italic.woff2') format('woff2');
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-300italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/SourceSans3-Regular.ttf.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-600.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: italic;
+    font-weight: 600;
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-600italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/source-sans-3-v9-latin_latin-ext-700italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -47,6 +96,78 @@
     src: url('../fonts/ibm-plex-serif-v15-latin-ext_latin-regular.woff2') format('woff2');
 }
 
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 200;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-200.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: italic;
+    font-weight: 200;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-200italic.woff2') format('woff2');
+}
+
+/* source-serif-4-300 - latin_latin-ext */
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-300.woff2') format('woff2');
+}
+
+/* source-serif-4-300italic - latin_latin-ext */
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: italic;
+    font-weight: 300;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-300italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../fonts/SourceSerif4-Regular.ttf.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: italic;
+    font-weight: 400;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-600.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: italic;
+    font-weight: 600;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-600italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-700.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/source-serif-4-v7-latin_latin-ext-700italic.woff2') format('woff2');
+}
+
 :root {
     --navbar-color: #252528;
     --bg-color: #1a1b1c;
@@ -74,11 +195,11 @@
     --accent-color: #ff6044;
     */
 
-    --header-font: 'Source Sans Pro', sans-serif;
+    --header-font: 'Source Serif 4', sans-serif;
     --subheader-font: 'IBM Plex Serif', serif;
-    --running-text-font: 'Source Sans Pro', sans-serif;
-    --running-text-emphasize-font: 'Source Sans Pro', sans-serif;
-    --navigation-font: 'Source Sans Pro', sans-serif;
+    --running-text-font: 'Source Sans 3', sans-serif;
+    --running-text-emphasize-font: 'Source Serif 4', serif;
+    --navigation-font: 'Source Sans 3', sans-serif;
 
     --base-width: 52.9rem;
 }
@@ -138,7 +259,7 @@ body {
     justify-content: center;
     align-items: center;
 
-    font-family: 'Source Sans Pro';
+    font-family: 'Source Sans 3';
     font-size: 1.5rem;
     font-weight: 400;
     letter-spacing: 0.2em;
@@ -282,7 +403,7 @@ a {
 h1 {
     margin: 0;
     font-family: var(--header-font);
-    font-size: 3rem;
+    font-size: 2.725rem;
     font-weight: 300;
     line-height: 1;
 }
@@ -309,7 +430,7 @@ b {
     font-variant: small-caps;
     font-weight: normal;
     font-family: var(--running-text-emphasize-font);
-    letter-spacing: 0.075em;
+    letter-spacing: 0.05em;
 }
 
 footer {
