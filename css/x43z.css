@@ -383,16 +383,16 @@ body {
     padding-bottom: 2.5rem;
 }
 
-.section-header {
+h2 {
     margin: 5rem auto 0 auto;
     padding: 1rem 1rem;
     width: calc(100% - 2.5rem * 2);
     max-width: calc(var(--base-width) - 2.5rem * 2);
 
     font-family: var(--navigation-font);
-    font-size: 1rem;
+    font-size: 2.25rem;
     letter-spacing: 0.05rem;
-    font-weight: 400;
+    font-weight: 300;
 
     color: var(--foreground-color-dimmed-2);
 
@@ -407,21 +407,9 @@ h1 {
     margin: 0;
     font-family: var(--header-font);
     font-size: 2.25rem;
+    letter-spacing: 0.05rem;
     font-weight: 600;
     line-height: 1;
-}
-
-h2 {
-    margin: 1rem -1rem;
-    padding: 1rem;
-    font-family: var(--subheader-font);
-    font-size: 1.5rem;
-    font-style: italic;
-    font-weight: 300;
-    background-color: var(--bg-color-dimmed);
-    color: var(--foreground-color-dimmed);
-    text-align: justify;
-    line-height: 1.6;
 }
 
 p {
@@ -458,9 +446,9 @@ img {
     padding: 0.5rem 2rem;
 
     font-family: var(--navigation-font);
-    font-size: 1.25rem;
-    letter-spacing: 0.075em;
-    font-weight: 400;
+    font-size: 1.125rem;
+    letter-spacing: 0.05em;
+    font-weight: 500;
 
     background-color: var(--accent-color);
 
