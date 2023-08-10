@@ -2,28 +2,28 @@
     font-family: 'Source Sans 3';
     font-style: normal;
     font-weight: 200;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-200.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-ExtraLight.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: italic;
     font-weight: 200;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-200italic.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-ExtraLightIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: normal;
     font-weight: 300;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-300.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-Light.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: italic;
     font-weight: 300;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-300italic.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-LightIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
@@ -37,49 +37,63 @@
     font-family: 'Source Sans 3';
     font-style: italic;
     font-weight: 400;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-italic.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-It.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: normal;
     font-weight: 500;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-500.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-Medium.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: italic;
     font-weight: 500;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-500italic.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-MediumIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: normal;
     font-weight: 600;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-600.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-Semibold.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: italic;
     font-weight: 600;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-600italic.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-SemiboldIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: normal;
     font-weight: 700;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-700.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-Bold.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Sans 3';
     font-style: italic;
     font-weight: 700;
-    src: url('../fonts/source-sans-3-v9-latin_latin-ext-700italic.woff2') format('woff2');
+    src: url('../fonts/SourceSans3-BoldIt.ttf.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/SourceSans3-Black.ttf.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Sans 3';
+    font-style: italic;
+    font-weight: 900;
+    src: url('../fonts/SourceSans3-BlackIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
@@ -365,6 +379,18 @@ body {
     max-width: var(--base-width);
 }
 
+.content-triple {
+    margin: 1.4rem auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+
+    max-width: var(--base-width);
+}
+
 .card {
     width: 25.75rem;
     max-width: 25.75rem;
@@ -428,6 +454,64 @@ body {
     letter-spacing: 0.05em;
     font-size: 0.9em;
 }
+
+.textcard {
+    width: 15.0rem;
+    max-width: 15.0rem;
+    flex-grow: 1;
+
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: 1fr;
+
+    background-color: var(--bg-color-card);
+    border: var(--card-border);
+
+    box-shadow: var(--card-shadow);
+    padding: 0;
+
+    font-family: var(--base-font);
+    font-size: 1.0rem;
+    font-weight: normal;
+    line-height: normal;
+}
+
+.textcard-content {
+    margin: 0;
+    width: 100%;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-top: 2.0rem;
+    padding-bottom: 1.5rem;
+}
+
+.textcard-action {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-top: 0;
+    padding-bottom: 2.5rem;
+}
+
+.textcard h3 {
+    text-decoration: none;
+    margin: 0;
+    font-family: var(--card-heading-font);
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.textcard b {
+    font-variant: small-caps;
+    font-weight: normal;
+    font-family: var(--card-emphasize-font);
+    letter-spacing: 0.05em;
+    font-size: 0.9em;
+}
+
 
 a {
     color: var(--accent-color);
