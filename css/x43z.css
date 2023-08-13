@@ -183,8 +183,8 @@
 :root {
     --navbar-color: #252528;
     --bg-color: #1a1b1c;
+    --bg-color-alt: #3b3e49;
     --bg-color-card: #252528;
-    --bg-color-alt: #252528;
     --shadow-color: #3b4042;
     --foreground-color: #e6e6e6;
     --foreground-color-alt: #d4d4d4;
@@ -583,6 +583,18 @@ img {
     border: solid 1px var(--foreground-color-alt-2);
     background: none;
     pointer-events: none;
+}
+
+.secondary {
+    color: var(--foreground-color);
+    border: solid 1px var(--bg-color-alt);
+    background-color: var(--bg-color-alt);
+}
+
+.secondary:hover {
+    color: var(--foreground-color);
+    border: solid 1px var(--foreground-color-alt-2);
+    background: none;
 }
 
 .article {
