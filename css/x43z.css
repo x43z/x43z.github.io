@@ -100,28 +100,28 @@
     font-family: 'Source Serif 4';
     font-style: normal;
     font-weight: 200;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-200.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-ExtraLight.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: italic;
     font-weight: 200;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-200italic.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-ExtraLightIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: normal;
     font-weight: 300;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-300.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-Light.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: italic;
     font-weight: 300;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-300italic.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-LightIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
@@ -135,49 +135,63 @@
     font-family: 'Source Serif 4';
     font-style: italic;
     font-weight: 400;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-italic.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-It.ttf.woff2') format('woff2');
 }
 
-@font-face {
+/*@font-face {
     font-family: 'Source Serif 4';
     font-style: normal;
     font-weight: 500;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-500.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-Medium.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: italic;
     font-weight: 500;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-500italic.woff2') format('woff2');
-}
+    src: url('../fonts/SourceSerif4-MediumIt.ttf.woff2') format('woff2');
+}*/
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: normal;
     font-weight: 600;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-600.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-Semibold.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: italic;
     font-weight: 600;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-600italic.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-SemiboldIt.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: normal;
     font-weight: 700;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-700.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-Bold.ttf.woff2') format('woff2');
 }
 
 @font-face {
     font-family: 'Source Serif 4';
     font-style: italic;
     font-weight: 700;
-    src: url('../fonts/source-serif-4-v7-latin_latin-ext-700italic.woff2') format('woff2');
+    src: url('../fonts/SourceSerif4-BoldIt.ttf.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: normal;
+    font-weight: 900;
+    src: url('../fonts/SourceSerif4-Black.ttf.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Source Serif 4';
+    font-style: italic;
+    font-weight: 900;
+    src: url('../fonts/SourceSerif4-BlackIt.ttf.woff2') format('woff2');
 }
 
 :root {
@@ -206,13 +220,13 @@
 
     --navigation-font: 'Source Sans 3', sans-serif;
 
-    --card-heading-font: 'Source Sans 3', serif;
+    --card-heading-font: 'Source Sans 3', sans-serif;
     --base-font: 'Source Sans 3', sans-serif;
     --card-emphasize-font: 'Source Serif 4', serif;
 
-    --article-font: 'Source Serif 4', sans-serif;
-    --article-emphasize-font: 'Source Serif 4', sans-serif;
-    --article-heading-font: 'Source Sans 3', sans-serif;
+    --article-font: 'Source Serif 4', serif;
+    --article-emphasize-font: 'Source Serif 4', serif;
+    --article-heading-font: 'Source Serif 4', serif;
     --article-subheading-font: 'Source Sans 3', sans-serif;
 
     --base-width: 52.9rem;
@@ -600,12 +614,12 @@ img {
 .article {
     margin: 0 auto;
     padding: 4rem;
-    max-width: 48rem;
+    max-width: 44rem;
 
     font-family: var(--article-font);
     font-size: 1.125rem;
     font-weight: 400;
-    line-height: 1.75;
+    line-height: 1.6;
 
     background-color: var(--article-bg-color);
     color: var(--article-foreground-color);
@@ -624,6 +638,7 @@ img {
     font-family: var(--article-heading-font);
     font-size: 3rem;
     font-weight: 600;
+    line-height: normal;
 }
 
 .article h2 {
@@ -631,6 +646,7 @@ img {
     font-family: var(--article-heading-font);
     font-size: 2rem;
     font-weight: 600;
+    line-height: normal;
 }
 
 .article hgroup p {
