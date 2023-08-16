@@ -597,6 +597,7 @@ img {
     border: solid 1px var(--foreground-color-alt-2);
     background: none;
     pointer-events: none;
+    box-shadow: none;
 }
 
 .secondary {
