@@ -549,7 +549,6 @@ h2 {
 
 p {
     margin: 1rem auto;
-    text-align: justify;
 }
 
 footer {
@@ -661,6 +660,5 @@ img {
 
     background-color: var(--article-bg-color-alt);
     color: var(--article-foreground-color-alt);
-    text-align: justify;
     line-height: 1.6;
 }
