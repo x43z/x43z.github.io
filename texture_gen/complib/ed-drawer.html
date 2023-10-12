@@ -1,0 +1,115 @@
+<template id="ed-drawer-template">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        :host {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            margin: 0;
+            padding: 0;
+        }
+
+        button {
+            all: unset;
+            width: calc(100% - 2.0rem);
+
+            font-weight: 400;
+            font-size: 1.25rem;
+            line-height: 1.25;
+            border-bottom: 0.125rem solid var(--foreground-color-alt-2);
+
+            /*position: relative;*/
+            padding: 0.5rem 1.0rem;
+            white-space: nowrap;
+            text-decoration: none;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0 0.5rem;
+
+            user-select: none;
+            cursor: pointer;
+        }
+
+        button * {
+            user-select: none;
+            cursor: pointer;
+        }
+
+        button:focus-visible {
+            outline: var(--focus-outline);
+            transition: outline 0s;
+        }
+
+        #caret {
+            transform: scale(1, 1);
+            transition: all .1s ease-out;
+        }
+
+        :host([open=true]) button {
+            transition: none;
+        }
+
+        :host([open=true]) button::after {
+            transform: scale(1, 1);
+        }
+
+        :host([open=true]) #caret {
+            transform: scale(1, -1);
+        }
+
+        #content {
+            display: none;
+            margin: 0;
+            padding: 1.0rem;
+        }
+
+        :host([open=true]) #content {
+            display: block;
+        }
+    </style>
+    <div class="container">
+        <button>
+            <slot name="label"></slot>
+            <ed-icon id="caret" icon="angle-down-solid" slot="action-icon"></ed-icon>
+        </button>
+        <div id="content">
+            <slot></slot>
+        </div>
+    </div>
+</template>
+
+<script type="module">
+    customElements.define(
+        "ed-drawer",
+        class extends HTMLElement {
+            //static formAssociated = true;
+
+            constructor() {
+                super();
+
+                const template_clone = document.getElementById("ed-drawer-template").content.cloneNode(true);
+                const button = template_clone.querySelector("button");
+                button.onclick = (event) => { this.handleSlottedClick(event) }
+
+                this.open = this.getAttribute("open") ?? false;
+
+                //this.internals_ = this.attachInternals();
+                this.attachShadow({ mode: "open" }).append(template_clone);
+            }
+
+            handleSlottedClick(event) {
+                this.open = !this.open;
+                this.setAttribute('open', this.open);
+            }
+        },
+    );
+</script>

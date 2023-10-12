@@ -29,6 +29,11 @@
             cursor: pointer;
         }
 
+        button:focus-visible {
+            outline: var(--focus-outline);
+            transition: outline 0s;
+        }
+
         /* underline (hidden by default with scale(0, 1)) */
         button::after {
             content: '';
@@ -48,7 +53,6 @@
         }
 
         :host([checked=true]) button {
-            background: none;
             transition: none;
         }
 

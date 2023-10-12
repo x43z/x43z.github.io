@@ -11,9 +11,9 @@
             padding: 0;
             width: 100%;
 
-            font-family: 'IBM Plex Mono';
-            font-size: 0.875rem;
-            font-weight: 400;
+            font-family: var(--input-font);
+            font-size: var(--input-font-size);
+            font-weight: var(--input-font-weight);
         }
 
         input[type=textbox] {
@@ -29,19 +29,21 @@
             border-radius: var(--input-border-radius);
             background: var(--bg-color-dark);
 
-            color: var(--foreground-color-dark);
-            box-shadow: inset 0.1875rem 0.1875rem var(--shadow-color);
+            color: var(--input-foreground-color);
+            box-shadow: var(--ed-field-inset-shadow);
         }
 
         input[type=textbox]:invalid {
             background: #6b2723;
         }
 
-        input[type=textbox]:focus {
+        input[type=textbox]:focus-visible {
             background-color: var(--focus-color);
+            outline: var(--focus-outline);
+            transition: outline 0s;
         }
 
-        input[type=textbox]:focus:invalid {
+        input[type=textbox]:focus-visible:invalid {
             background: #833d3a;
         }
     </style>

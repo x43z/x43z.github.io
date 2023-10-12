@@ -14,9 +14,8 @@
             color: var(--foreground-color);
             background-color: var(--bg-color-light);
 
-            border-radius: 0.0rem;
             border: none;
-            box-shadow: 0.1875rem 0.1875rem var(--shadow-color);
+            box-shadow: var(--shadow-card);
         }
 
         dialog::backdrop {
@@ -32,11 +31,10 @@
             padding: 0;
             width: 100%;
 
-            font-family: 'Source Sans Pro';
             font-weight: 400;
             font-size: 1.5rem;
             line-height: 1.5;
-            border-bottom: 0.125rem solid var(--accent-color);
+            border-bottom: 0.125rem solid var(--foreground-color-alt-2);
         }
 
         .inputs-wrapper {

@@ -35,19 +35,15 @@
         "ed-radio-group",
         class extends HTMLElement {
             static formAssociated = true;
-            slotted_radio_buttons = [];
+            buttons_mapping = new Map([]);
 
             constructor() {
                 super();
-
                 const template_clone = document.getElementById("ed-radio-group-template").content.cloneNode(true);
 
-                const default_slot = template_clone.querySelector("slot:not([name])");
-                default_slot.addEventListener("slotchange", (event) => {
-                    this.slotted_radio_buttons = default_slot.assignedElements().filter((el) => el.tagName === "ED-RADIO-BUTTON");
-                    this.updateRadioButtons();
-                    this.slotted_radio_buttons.forEach(el => el.onclick = (event) => { this.handleSlottedClick(event, el) });
-                });
+                this.default_slot = template_clone.querySelector("slot:not([name])");
+                //this.default_slot.addEventListener("slotchange", (event) => {
+                //});
 
                 this.name = this.getAttribute("name");
                 this.value = this.getAttribute("value");
@@ -61,20 +57,31 @@
                 this.setValue(el.value);
             }
 
-            updateRadioButtons() {
-                this.slotted_radio_buttons.forEach(el => el.setAttribute('checked', this.value === el.value));
+            updateRadioButtonsCheckedState(old_value, new_value) {
+                if (this.buttons_mapping.has(old_value)) {
+                    this.buttons_mapping.get(old_value).setAttribute('checked', false)
+                }
+                if (this.buttons_mapping.has(new_value)) {
+                    this.buttons_mapping.get(new_value).setAttribute('checked', true)
+                }
             }
 
             connectedCallback() {
                 setTimeout(() => {
-                    this.updateRadioButtons();
+                    let slotted_radio_buttons = this.default_slot.assignedElements().filter((el) => el.tagName === "ED-RADIO-BUTTON");
+                    this.buttons_mapping = new Map(slotted_radio_buttons.map((el) => [el.value, el]))
+                    this.updateRadioButtonsCheckedState("", this.value);
+                    this.buttons_mapping.forEach((el, key) => el.onclick = (event) => { this.handleSlottedClick(event, el) });
+
+                    this.updateRadioButtonsCheckedState("", this.value);
                 });
             }
 
             setValue(value) {
+                const old_value = this.value;
                 this.value = value;
+                this.updateRadioButtonsCheckedState(old_value, value);
                 this.internals_.setFormValue(this.value, this.value);
-                this.updateRadioButtons();
                 this.dispatchEvent(new CustomEvent("change", { detail: this.value }))
             }
 
