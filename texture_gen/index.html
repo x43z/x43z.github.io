@@ -177,54 +177,58 @@
         -->
     </ed-modal-dialog>
 
-    <!-- Include Web Components -->
     <script type="module">
-        const include_html = async (path) => {
+        // load wasm
+        import init from './pkg/web_basic_canvas.js';
+        const run = async () => {
+            await init();
+        }
+
+        // load web components
+        const load_html_fragment = async (path) => {
             const response = await fetch(path)
             const html = await response.text();
             const range = new Range();
-            const fragment = range.createContextualFragment(html)
-            globalThis.document.body.append(fragment);
+            return range.createContextualFragment(html);
         };
+        await Promise.all([
+            load_html_fragment("./complib/ed-button.html"),
+            load_html_fragment("./complib/ed-icon.html"),
+            load_html_fragment("./complib/ed-labeled.html"),
+            load_html_fragment("./complib/ed-drawer.html"),
+            load_html_fragment("./complib/ed-navbar.html"),
+            load_html_fragment("./complib/ed-selector.html"),
+            load_html_fragment("./complib/ed-radio-button.html"),
+            load_html_fragment("./complib/ed-radio-group.html"),
+            load_html_fragment("./complib/ed-tab-button.html"),
+            load_html_fragment("./complib/ed-tab-group.html"),
+            load_html_fragment("./complib/ed-tab-content.html"),
+            load_html_fragment("./complib/ed-textbox.html"),
+            load_html_fragment("./complib/ed-number.html"),
+            load_html_fragment("./complib/ed-checkbox.html"),
+            load_html_fragment("./complib/ed-slider.html"),
+            load_html_fragment("./complib/ed-modal-dialog.html"),
+            load_html_fragment("./complib/ed-mega-menu.html"),
+            load_html_fragment("./complib/ed-color-swatch.html"),
+        ]).then((fragments) => {
+            globalThis.document.body.append(...fragments);
+        });
 
-        include_html("./complib/ed-button.html");
-        include_html("./complib/ed-icon.html");
-        include_html("./complib/ed-labeled.html");
-        include_html("./complib/ed-navbar.html");
-        include_html("./complib/ed-selector.html");
-        include_html("./complib/ed-radio-button.html");
-        include_html("./complib/ed-radio-group.html");
-        include_html("./complib/ed-tab-button.html");
-        include_html("./complib/ed-tab-group.html");
-        include_html("./complib/ed-tab-content.html");
-        include_html("./complib/ed-textbox.html");
-        include_html("./complib/ed-number.html");
-        include_html("./complib/ed-checkbox.html");
-        include_html("./complib/ed-slider.html");
-        include_html("./complib/ed-modal-dialog.html");
-        include_html("./complib/ed-mega-menu.html");
-    </script>
-
-    <script type="module">
+        // connect canvas dialog button
         const canvas_dialog = document.getElementById('canvas-dialog');
         const show_canvas_dialog = document.getElementById('show-canvas-dialog');
         show_canvas_dialog.addEventListener('click', () => {
             canvas_dialog.dialog.showModal();
         });
 
+        // connect play/pause buttons
         const play_pause = document.getElementById('play-pause');
         const restart = document.getElementById('restart');
         restart.addEventListener('click', () => {
             play_pause.setValue("play");
         });
 
-        // wasm
-        import init from './pkg/web_basic_canvas.js';
-
-        async function run() {
-            await init();
-        }
-
+        // run wasm
         run();
     </script>
 </body>
