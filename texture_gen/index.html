@@ -178,10 +178,6 @@
     </ed-modal-dialog>
 
     <script type="module">
-        // load wasm
-        const { default: init_wasm } = await import('./pkg/web_basic_canvas.js');
-
-        // load web components
         const load_html_fragment = async (path) => {
             const response = await fetch(path)
             const html = await response.text();
@@ -189,7 +185,8 @@
             return range.createContextualFragment(html);
         };
 
-        const fragments = await Promise.all([
+        const [{ default: init_wasm }, ...complib_fragments] = await Promise.all([
+            await import('./pkg/web_basic_canvas.js'), // import wasm
             load_html_fragment("./complib/ed-button.html"),
             load_html_fragment("./complib/ed-icon.html"),
             load_html_fragment("./complib/ed-labeled.html"),
@@ -210,7 +207,7 @@
             load_html_fragment("./complib/ed-color-swatch.html"),
         ]);
 
-        globalThis.document.body.append(...fragments);
+        globalThis.document.body.append(...complib_fragments);
 
         // connect canvas dialog button
         const canvas_dialog = document.getElementById('canvas-dialog');
