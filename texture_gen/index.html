@@ -186,7 +186,7 @@
         };
 
         const [{ default: init_wasm }, ...complib_fragments] = await Promise.all([
-            await import('./pkg/web_basic_canvas.js'), // import wasm
+            import('./pkg/web_basic_canvas.js'), // import wasm
             load_html_fragment("./complib/ed-button.html"),
             load_html_fragment("./complib/ed-icon.html"),
             load_html_fragment("./complib/ed-labeled.html"),
