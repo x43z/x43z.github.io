@@ -203,6 +203,7 @@
     --foreground-color: #e6e6e6;
     --foreground-color-alt: #d4d4d4;
     --foreground-color-alt-2: #999999;
+    --foreground-color-high-contrast: #ffffff;
     --accent-color: #f34951;
 
     --shadow-navbar: 0px 2px 3px -1px rgba(0, 0, 0, 0.1);
@@ -575,11 +576,11 @@ img {
     font-family: var(--navigation-font);
     font-size: 1.125rem;
     letter-spacing: 0.05em;
-    font-weight: 500;
+    font-weight: 400;
 
     background-color: var(--accent-color);
 
-    color: var(--foreground-color);
+    color: var(--foreground-color-high-contrast);
     border: solid 1px var(--accent-color);
     box-shadow: var(--shadow-button);
     transition: all 0.2s ease-out;
