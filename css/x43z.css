@@ -213,6 +213,7 @@
 
     --article-bg-color: #f7f7f7;
     --article-bg-color-alt: #c6e7dc;
+    --article-backdrop-color: #e6e6e6;
     /*#96b429 #4998f3 #28cea4*/
     --article-foreground-color: #252528;
     --article-foreground-color-alt: #252528;
@@ -609,6 +610,12 @@ img {
     color: var(--foreground-color);
     border: solid 1px var(--foreground-color-alt-2);
     background: none;
+}
+
+.article-backdrop {
+    width: 100%;
+    height: 100%;
+    background-color: var(--article-backdrop-color);
 }
 
 .article {
