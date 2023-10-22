@@ -212,7 +212,7 @@
     --card-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.1);
 
     --article-bg-color: #f7f7f7;
-    --article-bg-color-alt: #e0ece8;
+    --article-bg-color-alt: #c6e7dc;
     /*#96b429 #4998f3 #28cea4*/
     --article-foreground-color: #252528;
     --article-foreground-color-alt: #252528;
@@ -614,12 +614,12 @@ img {
 .article {
     margin: 0 auto;
     padding: 4rem;
-    max-width: 44rem;
+    max-width: 48rem;
 
     font-family: var(--article-font);
     font-size: 1.125rem;
     font-weight: 400;
-    line-height: 1.6;
+    line-height: 1.4;
 
     background-color: var(--article-bg-color);
     color: var(--article-foreground-color);
