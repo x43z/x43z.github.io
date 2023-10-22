@@ -644,16 +644,19 @@ img {
     all: unset;
     font-family: var(--article-heading-font);
     font-size: 3rem;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
 }
 
 .article h2 {
     all: unset;
+    width: 100%;
     font-family: var(--article-heading-font);
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 400;
     line-height: normal;
+    border-bottom: 0.125rem solid var(--article-bg-color-alt);
+
 }
 
 .article hgroup p {
@@ -667,5 +670,5 @@ img {
 
     background-color: var(--article-bg-color-alt);
     color: var(--article-foreground-color-alt);
-    line-height: 1.6;
+    line-height: 1.4;
 }
