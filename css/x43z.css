@@ -234,9 +234,8 @@
     --base-width: 52.9rem;
 }
 
-
 html {
-    box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
 *,
