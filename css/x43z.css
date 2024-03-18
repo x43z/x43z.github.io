@@ -62,7 +62,7 @@ h2 {
     all: unset;
     display: block;
     margin: 2rem auto;
-    padding: 1rem;
+    padding: 0;
     width: auto;
     width: 100%;
     max-width: 40rem;
