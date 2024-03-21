@@ -19,7 +19,7 @@
 
     /*gallery*/
     --gallery-item-min-width: 12rem;
-    --gallery-gap: 0.5rem 0.5rem;
+    --gallery-gap: 1.0rem;
 
     /*gallery cards*/
     --card-theme-font: 'Source Sans 3', sans-serif;
@@ -64,7 +64,7 @@ h2 {
     margin: 2rem auto;
     padding: 0;
     width: 100%;
-    max-width: 40rem;
+    max-width: 44rem;
 
     font-family: 'Source Sans 3', serif;
     font-weight: 300;
@@ -227,7 +227,7 @@ footer {
 /*gallery*/
 .gallery-container {
     margin: 0 auto;
-    max-width: 48rem;
+    max-width: 52rem;
     padding: 1rem;
     background-color: #f7f7f7;
 }
@@ -359,7 +359,7 @@ footer {
     padding: 1rem 0;
 
     width: 100%;
-    max-width: 48rem;
+    max-width: 50rem;
 
     display: flex;
     flex-direction: column;
