@@ -5,178 +5,105 @@
     <link rel="stylesheet" href="../css/editor.css">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A reaction-diffusion texture generator">
-    <title>Reaction Diffusion</title>
+    <meta name="description" content="ed">
+    <title>Editor</title>
 </head>
 
 <body>
     <div class="single-page-container">
-        <ed-navbar class="navbar">
-            <span slot="logo" class="logo">X43Z</span>
-            <ed-button class="accent" id="download" slot="left">
-                Download
-                <ed-icon icon="download-solid" slot="action-icon"></ed-icon>
-            </ed-button>
-            <ed-tab-group id="settings-tab" collapsible="true" slot="right">
-                <form name="play-pause">
-                    <ed-radio-group id="play-pause" name="play-pause" value="play">
-                        <ed-radio-button class="icon secondary" value="play">
-                            <ed-icon icon="play-solid"></ed-icon>
-                        </ed-radio-button>
-                        <ed-radio-button class="icon secondary" value="pause">
-                            <ed-icon icon="pause-solid"></ed-icon>
-                        </ed-radio-button>
-                    </ed-radio-group>
-                </form>
-                <ed-button class="secondary" id="restart">
-                    Restart
-                    <ed-icon icon="arrow-rotate-left-solid" slot="action-icon"></ed-icon>
-                </ed-button>
-                <ed-button class="tertiary" id="show-canvas-dialog">
-                    Canvas
-                    <ed-icon icon="arrow-up-right-from-square-solid" slot="action-icon"></ed-icon>
-                </ed-button>
-                <ed-tab-button value="tool">
-                    Tool
-                </ed-tab-button>
-                <ed-tab-button value="settings">
-                    Settings
-                </ed-tab-button>
-            </ed-tab-group>
-        </ed-navbar>
-        <div class="toolbar">
-            <form name="toolbar">
-                <ed-radio-group class="vertical" name="tool_id" value="1">
-                    <!--
-                    <ed-radio-button class="icon" value="0">
-                        <ed-icon icon="arrows-up-down-left-right-solid"></ed-icon>
-                    </ed-radio-button>
-                    -->
-                    <ed-radio-button class="icon" value="1">
-                        <!-- pen -->
-                        <ed-icon icon="pen-solid"></ed-icon>
-                    </ed-radio-button>
-                    <ed-radio-button class="icon" value="2">
-                        <!-- eraser -->
-                        <ed-icon icon="eraser-solid"></ed-icon>
-                    </ed-radio-button>
-                </ed-radio-group>
-            </form>
+        <div class="navbar" id="navbar-target">
+            <!-- inner html set by model-->
+            <div class="logo">X43Z</div>
+            <ed-dropdown-menu>
+                <button slot="header">File</button>
+                <div class="submenu">
+                    <!--<button id="new">New</button>-->
+                    <!--<button id="load-model">Load Model</button>-->
+                    <!--<hr>-->
+                    <!--<button id="save-model">Save Model</button>-->
+                    <button id="export">Export</button>
+                </div>
+            </ed-dropdown-menu>
+            <ed-dropdown-menu>
+                <button slot="header">Image</button>
+                <div class="submenu">
+                    <button id="resize">Resize Canvas</button>
+                </div>
+            </ed-dropdown-menu>
+            <ed-dropdown-menu>
+                <button slot="header">View</button>
+                <div class="submenu">
+                    <button id="reset-view">Reset View</button>
+                    <button id="reset-zoom">Reset Zoom</button>
+                    <button id="center-view">Center View</button>
+                    <hr>
+                    <button id="zoom-in">Zoom +</button>
+                    <button id="zoom-out">Zoom -</button>
+                </div>
+            </ed-dropdown-menu>
         </div>
         <div class="sidebar">
-            <ed-tab-content tab-group-id="settings-tab" value="tool">
-                <div class="columns">
-                    <form name="tool-settings" class="inputs-wrapper">
-                        <h1>Tool</h1>
-                        <ed-labeled>
-                            <label slot="label">Size</label>
-                            <ed-slider name="tool_size" min="1" max="200" value="24" step="1"></ed-slider>
-                        </ed-labeled>
-                        <ed-labeled>
-                            <label slot="label">Strength</label>
-                            <ed-slider name="tool_strength" min="0.0" max="1.0" value="1.0" step="0.001"></ed-slider>
-                        </ed-labeled>
-                        <ed-labeled>
-                            <label slot="label">Falloff</label>
-                            <ed-slider name="tool_falloff" min="0.0" max="1.0" value="0.5" step="0.001"></ed-slider>
-                        </ed-labeled>
-                    </form>
-                </div>
-            </ed-tab-content>
-
-            <ed-tab-content tab-group-id="settings-tab" value="settings">
-                <div class="columns">
-                    <form name="simulation-settings" class="inputs-wrapper">
-                        <h1>Simulation</h1>
-                        <ed-labeled>
-                            <label slot="label">Skip Frames</label>
-                            <span slot="helptext">Skips frames to speed up the simulation</span>
-                            <ed-slider id="skip_frames_slider" name="skip_frames_slider" min="0" max="80" value="5"
-                                step="1"></ed-slider>
-                        </ed-labeled>
-                    </form>
-                    <form name="model-settings" class="inputs-wrapper">
-                        <h1>Model</h1>
-                        <!--
-                        <ed-labeled>
-                            <label slot="label">Presets</label>
-                            <span slot="helptext">Presets for the model settings</span>
-                            <ed-selector name="presets">
-                                <option value="None">-</option>
-                            </ed-selector>
-                        </ed-labeled>
-                        -->
-                        <ed-labeled>
-                            <label slot="label">Noise</label>
-                            <span slot="helptext">Adds fluctuations that randomly convert between substance a
-                                and
-                                b</span>
-                            <ed-slider name="g_noise_strength" min="0.0" max="1.0" value="0.3" step="0.001"></ed-slider>
-                        </ed-labeled>
-                        <ed-labeled>
-                            <label slot="label">r<sub>a</sub></label>
-                            <span slot="helptext">Diffusion rate of substance a</span>
-                            <ed-slider name="g_diffusion_rate_a" min="0.0" max="1.0" value="0.88"
-                                step="0.001"></ed-slider>
-                        </ed-labeled>
-                        <ed-labeled>
-                            <label slot="label">r<sub>b</sub></label>
-                            <span slot="helptext">Diffusion rate of substance b</span>
-                            <ed-slider name="g_diffusion_rate_b" min="0.0" max="1.0" value="0.25"
-                                step="0.001"></ed-slider>
-                        </ed-labeled>
-                        <ed-labeled>
-                            <label slot="label">F</label>
-                            <span slot="helptext">Feed rate of substance a</span>
-                            <ed-slider name="g_feed_rate" min="0.0" max="0.3" value="0.037" step="0.0001"></ed-slider>
-                        </ed-labeled>
-                        <ed-labeled>
-                            <label slot="label">k</label>
-                            <span slot="helptext">Kill rate of substance b.</span>
-                            <ed-slider name="g_kill_rate" min="0.0" max="0.1" value="0.062" step="0.0001"></ed-slider>
-                        </ed-labeled>
-                        <ed-labeled>
-                            <label slot="label">Scale</label>
-                            <span slot="helptext">Increases the feature size by reducing the reaction speed
-                                relative
-                                to
-                                the
-                                diffusion rates. Increasing the scale also slows down the simulation</span>
-                            <ed-slider name="g_scale" min="1" max="20" value="1" step="1"></ed-slider>
-                        </ed-labeled>
-                    </form>
-                </div>
-            </ed-tab-content>
+            <div class="headings" id="tab-headings-target">
+                <!-- inner html set by model-->
+            </div>
+            <div class="content" id="settings-target">
+                <!-- inner html set by model-->
+            </div>
         </div>
-        <div class="footer"></div>
+        <canvas id="main-view" class="main-view" oncontextmenu="return false;">
+        </canvas>
+        <div class="view-overlay">
+            <div class="toolbar" id="toolbar-target">
+                <!-- inner html set by model-->
+            </div>
+            <div class="top-bar-container">
+                <div class="top-bar" id="top-bar-target">
+                    <!-- inner html set by model-->
+                </div>
+            </div>
+            <div class="top-right">
+                <ed-button class="accent" id="download" slot="left">
+                    Download
+                    <ed-icon icon="download-solid" slot="action-icon"></ed-icon>
+                </ed-button>
+            </div>
+        </div>
+        <footer>
+        </footer>
     </div>
-    <canvas id="main-canvas" class="main-canvas">
-    </canvas>
-    <ed-modal-dialog id="canvas-dialog">
-        <span slot="title">Canvas Settings</span>
-        <ed-labeled>
-            <label slot="label">Width</label>
-            <span slot="helptext"></span>
-            <ed-number name="width" value="512" min="1" max="512"></ed-number>
-        </ed-labeled>
-        <ed-labeled>
-            <label slot="label">Height</label>
-            <span slot="helptext"></span>
-            <ed-number name="height" value="512" min="1" max="512"></ed-number>
-        </ed-labeled>
-        <!--
-        <ed-labeled>
-            <label slot="label">Image Format</label>
-            <span slot="helptext">The OpenGL Image Format used for the simulation textures</span>
-            <ed-selector name="image_format">
-                <option value="RGBA">RGBA</option>
-                <option value="RGBA_F16">RGBA_F16</option>
-                <option value="RGBA_F32">RGBA_F32</option>
-            </ed-selector>
-        </ed-labeled>
-        -->
-    </ed-modal-dialog>
-
+    <div id="dialogs-target">
+        <!-- inner html set by model-->
+        <ed-modal-dialog id="canvas-dialog">
+            <span slot="title">Canvas Size</span>
+            <ed-labeled>
+                <label slot="label">Width</label>
+                <span slot="helptext"></span>
+                <ed-number name="width" value="512" min="1" max="4096"></ed-number>
+            </ed-labeled>
+            <ed-labeled>
+                <label slot="label">Height</label>
+                <span slot="helptext"></span>
+                <ed-number name="height" value="512" min="1" max="4096"></ed-number>
+            </ed-labeled>
+            <!--<ed-labeled>
+                <label slot="label">Image Format</label>
+                <span slot="helptext">The OpenGL Image Format used for the rendered textures</span>
+                <ed-selector name="image_format">
+                    <option value="RGBA">RGBA</option>
+                    <option value="RGBA_F16">RGBA_F16</option>
+                    <option value="RGBA_F32">RGBA_F32</option>
+                </ed-selector>
+            </ed-labeled>
+            <ed-labeled>
+                <label slot="label">Linear</label>
+                <span slot="helptext">Save the texture in linear colorspace</span>
+                <ed-checkbox name="save_as_linear" value="save_as_linear"></ed-checkbox>
+            </ed-labeled>-->
+        </ed-modal-dialog>
+    </div>
+    <dialog id="processing-overlay">
+        <h2>Processing...</h2>
+    </dialog>
     <script type="module">
         const load_html_fragment = async (path) => {
             const response = await fetch(path)
@@ -187,44 +114,35 @@
 
         const [{ default: init_wasm }, ...complib_fragments] = await Promise.all([
             import('./pkg/web_basic_canvas.js'), // import wasm
-            load_html_fragment("./complib/ed-button.html"),
-            load_html_fragment("./complib/ed-icon.html"),
-            load_html_fragment("./complib/ed-labeled.html"),
-            load_html_fragment("./complib/ed-drawer.html"),
-            load_html_fragment("./complib/ed-navbar.html"),
-            load_html_fragment("./complib/ed-selector.html"),
-            load_html_fragment("./complib/ed-radio-button.html"),
-            load_html_fragment("./complib/ed-radio-group.html"),
-            load_html_fragment("./complib/ed-tab-button.html"),
-            load_html_fragment("./complib/ed-tab-group.html"),
-            load_html_fragment("./complib/ed-tab-content.html"),
-            load_html_fragment("./complib/ed-textbox.html"),
-            load_html_fragment("./complib/ed-number.html"),
-            load_html_fragment("./complib/ed-checkbox.html"),
-            load_html_fragment("./complib/ed-slider.html"),
-            load_html_fragment("./complib/ed-modal-dialog.html"),
-            load_html_fragment("./complib/ed-mega-menu.html"),
-            load_html_fragment("./complib/ed-color-swatch.html"),
+            load_html_fragment("../complib/ed-button.html"),
+            load_html_fragment("../complib/ed-icon.html"),
+            load_html_fragment("../complib/ed-labeled.html"),
+            load_html_fragment("../complib/ed-drawer.html"),
+            load_html_fragment("../complib/ed-dropdown-menu.html"),
+            load_html_fragment("../complib/ed-navbar.html"),
+            load_html_fragment("../complib/ed-selector.html"),
+            load_html_fragment("../complib/ed-radio-button.html"),
+            load_html_fragment("../complib/ed-radio-group.html"),
+            load_html_fragment("../complib/ed-tab-button.html"),
+            load_html_fragment("../complib/ed-tab-group.html"),
+            load_html_fragment("../complib/ed-tab-content.html"),
+            load_html_fragment("../complib/ed-textbox.html"),
+            load_html_fragment("../complib/ed-number.html"),
+            load_html_fragment("../complib/ed-checkbox.html"),
+            load_html_fragment("../complib/ed-slider.html"),
+            load_html_fragment("../complib/ed-modal-dialog.html"),
+            load_html_fragment("../complib/ed-mega-menu.html"),
+            load_html_fragment("../complib/ed-color-swatch.html"),
+            load_html_fragment("../complib/ed-form-listener.html"),
+            load_html_fragment("../complib/ed-variant-selector.html"),
+            load_html_fragment("../complib/ed-variant-content.html"),
         ]);
 
         globalThis.document.body.append(...complib_fragments);
 
-        // connect canvas dialog button
-        const canvas_dialog = document.getElementById('canvas-dialog');
-        const show_canvas_dialog = document.getElementById('show-canvas-dialog');
-        show_canvas_dialog.addEventListener('click', () => {
-            canvas_dialog.dialog.showModal();
-        });
-
-        // connect play/pause buttons
-        const play_pause = document.getElementById('play-pause');
-        const restart = document.getElementById('restart');
-        restart.addEventListener('click', () => {
-            play_pause.setValue("play");
-        });
-
         // run wasm
         await init_wasm();
+
     </script>
 </body>
 

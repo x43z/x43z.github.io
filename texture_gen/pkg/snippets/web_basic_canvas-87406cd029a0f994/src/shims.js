@@ -1,30 +1,37 @@
-export function getCanvasGlContext(canvas) {
+export function getCanvasGlContext(canvas, antialias, alpha) {
     const context = canvas.getContext('webgl2', {
-        antialias: false,
+        antialias: antialias,
+        alpha: alpha,
     });
     console.log('webgl2 context:', context);
     return context;
 }
 
-export function getOffscreenCanvasGlContext(canvas) {
+export function getOffscreenCanvasGlContext(canvas, antialias, alpha) {
     const context = canvas.getContext('webgl2', {
-        antialias: false,
+        antialias: antialias,
+        alpha: alpha,
     });
     console.log('webgl2 context:', context);
     return context;
 }
 
 export function downloadOffscreenCanvasBlob(canvas) {
-    canvas.convertToBlob().then((blob) => saveFile(blob));
+    canvas.convertToBlob().then((blob) => saveFile(blob, "texture"));
 }
 
-const saveFile = (blob) => {
+export function downloadModelFile(model_string, filename) {
+    const blob = new Blob([model_string], { type: 'text/plain' });
+    saveFile(blob, filename + ".obj");
+}
+
+const saveFile = (blob, filename) => {
     const url = URL.createObjectURL(blob)
 
     const link = document.createElement("a");
     link.style.display = "none";
     link.href = url;
-    link.download = "reaction_diffusion";
+    link.download = filename; // TODO: name as param
 
     document.body.appendChild(link);
     link.click();
@@ -50,8 +57,14 @@ export function time_now() {
     return window.performance.now();
 }
 
-export function connect_input_elements(element_a, element_b) {
-    element_b.value = element_a.value;
-    element_a.oninput = (event) => element_b.value = event.target.value;
-    element_b.oninput = (event) => element_a.value = event.target.value;
+export function show_modal(el) {
+    el.showModal()
+}
+
+export function close_dialog(el) {
+    el.close()
+}
+
+export function formdata_entries(formdata) {
+    return formdata.entries()
 }

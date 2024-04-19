@@ -7,9 +7,8 @@
         }
 
         :host {
-            width: 100%;
+            width: var(--tab-content-width);
             height: 100%;
-            margin: 0;
             padding: 0;
             display: none;
         }
@@ -39,6 +38,7 @@
             connectedCallback() {
                 setTimeout(() => {
                     const tab_group = document.getElementById(this.tab_group_id);
+                    this.setAttribute('checked', this.value === tab_group.value);
                     tab_group.addEventListener("change", (event) => {
                         let tab_value = event.detail;
                         this.setAttribute('checked', this.value === tab_value);

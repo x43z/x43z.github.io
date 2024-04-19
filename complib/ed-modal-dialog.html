@@ -7,7 +7,6 @@
         }
 
         dialog {
-            margin: 0, 0;
             padding: 4rem 4rem;
             width: calc(100% - 2rem);
             max-width: 36rem;
@@ -81,7 +80,7 @@
                 </ed-button>
             </div>
             <div class="close-button-wrapper">
-                <ed-button class="icon" name="submitter" value="cancel">
+                <ed-button class="icon tertiary" name="submitter" value="cancel">
                     <ed-icon icon="xmark-solid" slot="icon"></ed-icon>
                 </ed-button>
             </div>
@@ -114,6 +113,10 @@
                     const formdata = new FormData(form)
                     this.dispatchEvent(new CustomEvent("close", { detail: formdata }))
                 });
+            }
+
+            showModal() {
+                this.dialog.showModal();
             }
         }
     );

@@ -10,7 +10,6 @@
             display: grid;
 
             padding: 0;
-            margin: 0;
             width: 100%;
             height: 1.5rem;
 
@@ -18,11 +17,12 @@
 
             grid-template-rows: 100%;
             grid-template-columns: 1fr auto;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         input[type=range] {
             all: unset;
+            box-sizing: border-box;
 
             margin: 0;
             padding: 0;
@@ -38,7 +38,6 @@
         }
 
         input[type=range]::-webkit-slider-runnable-track {
-            /* all: unset; breaks the slider positioning... */
             appearance: none;
 
             margin: 0;
@@ -54,6 +53,7 @@
 
         input[type=range]::-moz-range-track {
             all: unset;
+            box-sizing: border-box;
 
             margin: 0;
             padding: 0;
@@ -67,7 +67,8 @@
         }
 
         input[type=range]::-webkit-slider-thumb {
-            /* all: unset; breaks the slider */
+            box-sizing: border-box;
+
             appearance: none;
 
             /* subtract half of slider size to center ...*/
@@ -89,6 +90,7 @@
 
         input[type=range]::-moz-range-thumb {
             all: unset;
+            box-sizing: border-box;
 
             width: 0.8125rem;
             height: 1.25rem;
@@ -108,13 +110,14 @@
             font-family: var(--input-font);
             font-size: var(--input-font-size);
             font-weight: var(--input-font-weight);
+            --number-ed-width: 7ch;
 
             /* 8 chars wide*/
-            width: calc(7ch + 1.0rem);
+            width: calc(var(--number-ed-width) + var(--button-icon-small-size) * 2.0 + 1.0rem);
         }
     </style>
-    <input type="range">
-    <ed-number></ed-number>
+    <input type="range" tabindex="-1">
+    <ed-number class="caret"></ed-number>
 </template>
 
 <script type="module">
@@ -137,9 +140,12 @@
                 this.range.setAttribute("value", this.getAttribute("value") ?? "");
 
                 this.ed_number.setAttribute("value", this.getAttribute("value") ?? "");
+                this.ed_number.setAttribute("min", this.getAttribute("min"));
+                this.ed_number.setAttribute("max", this.getAttribute("max"));
+                this.ed_number.setAttribute("step", this.getAttribute("step") ?? 1);
 
                 this.name = this.getAttribute("name");
-                this.value = this.getAttribute("value");
+                this.value = Number(this.getAttribute("value"));
 
                 this.internals_ = this.attachInternals();
                 this.attachShadow({ mode: "open" }).append(template_clone);
@@ -149,19 +155,23 @@
 
             connectedCallback() {
                 setTimeout(() => {
-                    const input = this.ed_number.input;
-                    input.value = this.range.value;
-                    input.addEventListener("input", (event) => {
-                        this.value = event.target.value;
+                    this.ed_number.value = this.value;
+                    this.ed_number.input.value = this.value;
+                    this.ed_number.addEventListener("change", (event) => {
+                        this.value = Number(event.target.value);
                         this.range.value = this.value;
                         this.internals_.setFormValue(this.value, this.value);
-                        this.dispatchEvent(new CustomEvent("input", { detail: event.target.value }))
+                        this.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
+                        this.internals_.form?.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
                     });
                     this.range.addEventListener("input", (event) => {
-                        this.value = event.target.value;
-                        input.value = this.value;
+                        this.value = Number(event.target.value);
+                        this.ed_number.value = this.value;
+                        this.ed_number.input.value = this.value;
+                        this.ed_number.updateButtonDisabledState();
                         this.internals_.setFormValue(this.value, this.value);
-                        this.dispatchEvent(new CustomEvent("input", { detail: event.target.value }))
+                        this.dispatchEvent(new CustomEvent("change", { detail: this.value }))
+                        this.internals_.form?.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
                     });
                 })
             }

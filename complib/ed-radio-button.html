@@ -6,13 +6,11 @@
             box-sizing: border-box;
         }
 
-        :host {
-            margin: 0;
-            padding: 0;
-        }
 
         button {
             all: unset;
+            box-sizing: border-box;
+
             margin: 0;
             padding: 0;
             width: 8rem;
@@ -38,7 +36,7 @@
             user-select: none;
             cursor: pointer;
 
-            transition: all 0.2s ease-out;
+            transition: all 0.1s ease-out;
         }
 
         button:focus-visible {
@@ -55,7 +53,11 @@
         }
 
         :host(.icon) button:hover {
-            background-color: var(--focus-color);
+            background-color: var(--foreground-color-alt-2);
+        }
+
+        :host(.icon[checked=true]) button:hover {
+            background-color: var(--accent-color);
         }
 
         :host(.color) {
@@ -76,10 +78,8 @@
 
         :host(.color[checked=true]) button {
             background-color: transparent;
-        }
-
-        :host(.color[checked=true]) button:hover {
             outline: 0.125rem solid var(--foreground-color);
+            box-shadow: var(--ed-field-inset-shadow);
         }
 
         :host(.secondary) button {
@@ -94,16 +94,9 @@
         }
 
         :host([checked=true]) button {
-            outline: 0.125rem solid var(--foreground-color);
-            background-color: var(--bg-color-dark);
-            box-shadow: var(--ed-field-inset-shadow);
-            transition: none;
-        }
-
-        :host(:hover) button:active {
-            transition: none;
-            box-shadow: none;
-            background-color: var(--foreground-color-alt-2);
+            /*outline: 0.125rem solid var(--foreground-color);*/
+            background-color: var(--accent-color);
+            /*box-shadow: var(--ed-field-inset-shadow);*/
         }
     </style>
     <button type="button">

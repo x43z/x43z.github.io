@@ -6,10 +6,6 @@
             box-sizing: border-box;
         }
 
-        :host {
-            margin: 0;
-            padding: 0;
-        }
 
         .container {
             margin: 0;
@@ -20,6 +16,14 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 1.0rem 1.0rem;
+        }
+
+        :host(.vertical) .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 0;
+            scrollbar-width: thin;
         }
     </style>
     <div class="container">
@@ -59,7 +63,7 @@
                     this.value = el.value;
                 }
                 this.updateTabButtons();
-                this.dispatchEvent(new CustomEvent("change", { detail: this.value }))
+                this.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
             }
 
             updateTabButtons() {

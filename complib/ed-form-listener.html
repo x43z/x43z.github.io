@@ -1,4 +1,4 @@
-<template id="ed-textbox-template">
+<template id="ed-form-listener-template">
     <style>
         *,
         *::before,
@@ -7,7 +7,6 @@
         }
 
         :host {
-            margin: 0;
             padding: 0;
             width: 100%;
 
@@ -26,31 +25,28 @@
             width: 100%;
 
             border: none;
-            border-radius: var(--input-border-radius);
-            background: var(--bg-color-dark);
+            background: none;
 
             color: var(--input-foreground-color);
-            box-shadow: var(--ed-field-inset-shadow);
         }
 
         input[type=text]:focus-visible {
-            outline: var(--focus-outline);
             transition: outline 0s;
         }
     </style>
-    <input type="text">
+    <input type="text" readonly>
 </template>
 
 <script type="module">
     customElements.define(
-        "ed-textbox",
+        "ed-form-listener",
         class extends HTMLElement {
             static formAssociated = true;
 
             constructor() {
                 super();
 
-                const template_clone = document.getElementById("ed-textbox-template").content.cloneNode(true);
+                const template_clone = document.getElementById("ed-form-listener-template").content.cloneNode(true);
 
                 this.input = template_clone.querySelector('input');
                 this.input.setAttribute("value", this.getAttribute("value") ?? "");
@@ -60,13 +56,25 @@
 
                 this.internals_ = this.attachInternals();
                 this.attachShadow({ mode: "open" }).append(template_clone);
-                this.internals_.setFormValue(this.value, this.value);
+            }
 
-                this.input.addEventListener("input", (event) => {
-                    this.value = event.target.value;
-                    this.internals_.setFormValue(this.value, this.value);
-                    this.dispatchEvent(new CustomEvent("input", { detail: event.target.value }))
-                });
+            connectedCallback() {
+                setTimeout(() => {
+                    this.internals_.form.addEventListener("change", (event) => {
+                        const formdata = new FormData(event.target);
+                        const props = Object.fromEntries(formdata);
+                        this.value = Number(props.resilience)
+                            + Number(props.resignation)
+                            + Number(props.union)
+                            + Number(props.accounting)
+                            + Number(props.company_values)
+                            + Number(props.sports);
+                        this.input.value = this.value
+                        // TODO: custom code;
+                        // TODO: Select other form than this elements' parent.
+                        // TODO: multi-form listener
+                    });
+                })
             }
         },
     );

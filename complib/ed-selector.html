@@ -6,10 +6,6 @@
             box-sizing: border-box;
         }
 
-        :host {
-            margin: 0;
-            padding: 0;
-        }
 
         .container {
             position: relative;
@@ -25,12 +21,12 @@
             margin: 0 auto;
 
             width: 100%;
-            height: 1.5rem;
+            height: var(--input-height);
 
             flex-grow: 1;
 
             border: none;
-            border-radius: 0.25rem;
+            border-radius: var(--input-border-radius);
             background: var(--bg-color-dark);
 
             color: var(--foreground-color);
@@ -49,18 +45,26 @@
 
         ed-icon {
             position: absolute;
-            right: 0.25rem;
-            top: 0.25rem;
+            right: calc(var(--input-height) / 2.0 - 0.5rem);
+            top: calc(var(--input-height) / 2.0 - 0.5rem);
             transition: all 0.2s linear;
+            pointer-events: none;
         }
 
         option {
             appearance: none;
         }
+
+        ed-icon {
+            font-size: 1.0rem;
+        }
     </style>
     <div class="container">
-        <select id="selector"></select>
-        <ed-icon icon="angle-down-solid" slot="action-icon"></ed-icon>
+        <select>
+            <!-- Childeren will be attached here on slot change -->
+        </select>
+        <ed-icon icon="angle-down-solid"></ed-icon>
+        <slot></slot>
     </div>
 </template>
 
@@ -74,27 +78,31 @@
                 super();
 
                 const template_clone = document.getElementById("ed-selector-template").content.cloneNode(true);
-                this.select = template_clone.querySelector('select');
-
+                this.select = template_clone.querySelector("select");
                 this.name = this.getAttribute("name");
                 this.value = this.getAttribute("value");
 
-                this.internals_ = this.attachInternals();
-                this.attachShadow({ mode: "open" }).append(template_clone)
-                this.internals_.setFormValue(this.value, this.value);
+                const default_slot = template_clone.querySelector("slot:not([name])");
+                default_slot.addEventListener("slotchange", (event) => {
+                    const slotted_elements = default_slot.assignedElements();
+                    this.select.append(...slotted_elements);
+                });
 
                 this.select.addEventListener("change", (event) => {
                     this.value = event.target.value;
                     this.internals_.setFormValue(this.value, this.value);
-                    this.dispatchEvent(new CustomEvent("change", { detail: event.target.value }))
+                    this.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
+                    this.internals_.form?.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
                 });
+
+                this.internals_ = this.attachInternals();
+                this.attachShadow({ mode: "open" }).append(template_clone)
+                this.internals_.setFormValue(this.value, this.value);
             }
 
-            connectedCallback() {
-                // attach light DOM children to shadow dom select, since options would not work in slots
-                setTimeout(() => {
-                    this.select.append(...this.children);
-                })
+            setValue(value) {
+                this.value = value;
+                this.select.value = value;
             }
         },
     );

@@ -6,10 +6,6 @@
             box-sizing: border-box;
         }
 
-        :host {
-            margin: 0;
-            padding: 0;
-        }
 
         .container {
             margin: 0;
@@ -65,8 +61,8 @@
                 }
 
                 this.internals_ = this.attachInternals();
-                this.internals_.setFormValue(this.value, this.value);
                 this.attachShadow({ mode: "open" }).append(template_clone);
+                this.internals_.setFormValue(this.value, this.value);
             }
 
             handleSlottedClick(event, el) {
@@ -75,10 +71,10 @@
 
             updateRadioButtonsCheckedState(old_value, new_value) {
                 if (this.buttons_map.has(old_value)) {
-                    this.buttons_map.get(old_value).setAttribute('checked', false)
+                    this.buttons_map.get(old_value).setAttribute("checked", false)
                 }
                 if (this.buttons_map.has(new_value)) {
-                    this.buttons_map.get(new_value).setAttribute('checked', true)
+                    this.buttons_map.get(new_value).setAttribute("checked", true)
                 }
             }
 
@@ -98,7 +94,8 @@
                 this.value = value;
                 this.updateRadioButtonsCheckedState(old_value, value);
                 this.internals_.setFormValue(this.value, this.value);
-                this.dispatchEvent(new CustomEvent("change", { detail: this.value }))
+                this.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
+                this.internals_.form?.dispatchEvent(new CustomEvent("change", { detail: (this.name, this.value) }))
             }
 
         },

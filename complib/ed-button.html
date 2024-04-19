@@ -6,19 +6,16 @@
             box-sizing: border-box;
         }
 
-        :host {
-            margin: 0;
-            padding: 0;
-        }
-
         button {
             all: unset;
+            box-sizing: border-box;
+
             user-select: none;
 
             margin: 0;
             padding: 0;
-            width: 8rem;
-            height: 2.0rem;
+            width: 8.5rem;
+            height: 2.5rem;
 
             display: flex;
             justify-content: center;
@@ -40,64 +37,86 @@
 
             cursor: pointer;
 
-            transition: all 0.2s ease-out;
-        }
+            transition: all 0.1s ease-out;
 
-        button:hover {
-            background-color: var(--focus-color);
-        }
+            &:hover {
+                background-color: var(--focus-color);
+            }
 
-        button:focus-visible {
-            background-color: var(--focus-color);
-            outline: var(--focus-outline);
-            transition: outline 0s;
+            &:focus-visible {
+                background-color: var(--focus-color);
+                outline: var(--focus-outline);
+                transition: outline 0s;
+            }
+
         }
 
         :host(.secondary) button {
             background-color: var(--bg-color-light);
             border: var(--button-border-width) solid var(--foreground-color-alt-2);
-        }
 
-        :host(.secondary) button:hover {
-            background-color: var(--focus-color);
-            border: var(--button-border-width) solid transparent;
+            &:hover {
+                background-color: var(--focus-color);
+                border: var(--button-border-width) solid transparent;
+            }
         }
 
         :host(.accent) button {
+            color: var(--foreground-color-high-contrast);
             background-color: var(--accent-color);
             border: var(--button-border-width) solid var(--accent-color);
-            font-weight: 500;
-        }
 
-        :host(.accent) button:hover {
-            color: var(--accent-color);
-            background: none;
+            &:hover {
+                color: var(--accent-color);
+                background: none;
+            }
         }
 
         :host(.tertiary) button {
             width: auto;
             background-color: transparent;
             box-shadow: none;
+
+            &:hover {
+                border: var(--button-border-width) solid transparent;
+                /* background-color: var(--focus-color); */
+            }
         }
 
-        :host(.tertiary) button:hover {
-            border: var(--button-border-width) solid transparent;
+        :host(.hover-highlight) button:hover {
+            background-color: var(--focus-color);
+        }
+
+        :host(.hover-highlight) button:active {
+            background-color: var(--foreground-color-alt-2);
         }
 
         :host(.icon) button {
             background-color: transparent;
             box-shadow: none;
-            width: 2.0rem;
-            height: 2.0rem;
+            font-size: 1.0rem;
+            width: var(--button-icon-size);
+            height: var(--button-icon-size);
+        }
+
+        :host(.icon) button:hover {
+            background-color: var(--foreground-color-alt-2);
+        }
+
+        :host(.icon-small) button {
+            font-size: 0.75rem;
+            width: var(--button-icon-small-size);
+            height: var(--button-icon-small-size);
+            border-radius: var(--button-icon-small-size);
         }
 
         :host(.stretch) {
             width: 100%;
             flex-grow: 1;
-        }
 
-        :host(.stretch) button {
-            width: 100%;
+            button {
+                width: 100%;
+            }
         }
 
         :host(:hover) button:active {
@@ -105,9 +124,23 @@
             box-shadow: none;
         }
 
+        :host(:disabled) button {
+            color: var(--button-disabled-color);
+            cursor: default;
+            pointer-events: none;
+        }
+
         ::slotted(*) {
             user-select: none;
             cursor: pointer;
+        }
+
+        ::slotted(*[slot="icon"]) {
+            font-size: 1.0rem;
+        }
+
+        ::slotted(*[slot="action-icon"]) {
+            font-size: 1.0rem;
         }
     </style>
     <button>

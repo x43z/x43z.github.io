@@ -6,24 +6,18 @@
             box-sizing: border-box;
         }
 
-        :host {
-            margin: 0;
-            padding: 0;
-        }
 
-        .container {
-            margin: 0;
-            padding: 0;
-        }
-
-        button {
+        summary {
             all: unset;
-            width: calc(100% - 2.0rem);
+            box-sizing: border-box;
 
-            font-weight: 400;
-            font-size: 1.25rem;
+            width: 100%;
+
+            font-size: 1.0rem;
+            font-weight: 600;
             line-height: 1.25;
-            border-bottom: 0.125rem solid var(--foreground-color-alt-2);
+            /*border-bottom: 0.125rem solid var(--foreground-color-alt-2);*/
+            background-color: var(--bg-color-light-2);
 
             /*position: relative;*/
             padding: 0.5rem 1.0rem;
@@ -31,84 +25,83 @@
             text-decoration: none;
 
             display: flex;
-            justify-content: space-between;
+            justify-content: start;
             align-items: center;
             gap: 0 0.5rem;
 
             user-select: none;
             cursor: pointer;
+
+            transition: all 0.2s ease-out;
         }
 
-        button * {
+        summary * {
             user-select: none;
             cursor: pointer;
         }
 
-        button:focus-visible {
+        summary:focus-visible {
             outline: var(--focus-outline);
             transition: outline 0s;
         }
 
+        summary:hover {
+            background-color: var(--foreground-color-alt-2);
+        }
+
         #caret {
-            transform: scale(1, 1);
+            transform: rotate(0);
             transition: all .1s ease-out;
         }
 
-        :host([open=true]) button {
+        details[open] summary {
             transition: none;
         }
 
-        :host([open=true]) button::after {
-            transform: scale(1, 1);
-        }
-
-        :host([open=true]) #caret {
-            transform: scale(1, -1);
+        details[open] summary #caret {
+            transform: rotate(90deg);
         }
 
         #content {
-            display: none;
+            display: flex;
+            justify-content: start;
+            align-items: stretch;
+            flex-flow: column;
+
+            gap: 0.5rem;
             margin: 0;
             padding: 1.0rem;
         }
 
-        :host([open=true]) #content {
-            display: block;
+        ed-icon {
+            font-size: 1.0rem;
         }
     </style>
-    <div class="container">
-        <button>
+    <details>
+        <summary>
+            <ed-icon id="caret" icon="angle-right-solid"></ed-icon>
             <slot name="label"></slot>
-            <ed-icon id="caret" icon="angle-down-solid" slot="action-icon"></ed-icon>
-        </button>
+        </summary>
         <div id="content">
             <slot></slot>
         </div>
-    </div>
+    </details>
 </template>
 
 <script type="module">
     customElements.define(
         "ed-drawer",
         class extends HTMLElement {
-            //static formAssociated = true;
-
             constructor() {
                 super();
 
                 const template_clone = document.getElementById("ed-drawer-template").content.cloneNode(true);
-                const button = template_clone.querySelector("button");
-                button.onclick = (event) => { this.handleSlottedClick(event) }
 
-                this.open = this.getAttribute("open") ?? false;
+                // add open attribute from parent to details tag
+                const details = template_clone.querySelector("details");
+                details.open = this.getAttribute("open") ?? false;
 
-                //this.internals_ = this.attachInternals();
                 this.attachShadow({ mode: "open" }).append(template_clone);
-            }
-
-            handleSlottedClick(event) {
-                this.open = !this.open;
-                this.setAttribute('open', this.open);
             }
         },
     );

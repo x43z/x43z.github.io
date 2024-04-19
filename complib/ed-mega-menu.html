@@ -15,12 +15,6 @@
             display: none;
             position: absolute;
 
-            /*  
-            align-self: flex-end; 
-            translate: 0 100%;
-            to position this below the end of a flex container. 
-            */
-
             align-self: flex-end;
             translate: 0 100%;
 
@@ -31,18 +25,28 @@
             padding: 4rem;
             width: 100%;
 
-            background-color: var(--bg-color-light);
+            background-color: var(--bg-color-light-2);
             box-shadow: var(--shadow-card);
 
-            z-index: 1;
+            z-index: 10;
         }
 
-        :host(:focus-within) .content-container {
-            display: block;
+        :host(:hover) {
+            .content-container {
+                display: block;
+            }
+
+            /* show underline for hovered link or content */
+            ::slotted(a)::after {
+                transform: scale(1, 1);
+            }
+
+            ::slotted(a) {
+                background-color: var(--bg-color-light-2);
+            }
         }
 
         ::slotted(a) {
-            /* position: relative is needed to create a stacking context for underline */
             position: relative;
             padding: 0 1rem;
             white-space: nowrap;
@@ -55,7 +59,6 @@
             gap: 0 0.5rem;
         }
 
-        /* underline (hidden by default with scale(0, 1)) */
         ::slotted(a)::after {
             content: '';
             position: absolute;
@@ -66,15 +69,6 @@
             left: 0;
             transform: scale(0, 1);
             transition: all .2s ease-out;
-        }
-
-        /* show underline for hovered link */
-        ::slotted(a:hover)::after {
-            transform: scale(1, 1);
-        }
-
-        :host(:focus-within) ::slotted(a)::after {
-            transform: scale(1, 1);
         }
     </style>
     <slot name="header"></slot>
